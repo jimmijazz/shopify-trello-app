@@ -1,0 +1,11 @@
+{
+	"oauth": {
+		"api_key": "1ae38071062018a1a5058a071c7db7e5",
+		"client_secret": "7915902bc7ec70e2d6f41d9efee63bfe",
+		"redirect_uri": "https://49805bc4.ngrok.io/access_token",
+		"scope": "write_orders,read_orders,read_customers,write_customers,read_products"
+	},
+	"app_url": "https://49805bc4.ngrok.io",
+	"trello_key" : "dbdd3808d314c362931b7c8918766c03",
+	"trello_secret" : "638e9336524d1adbf731ebf336396cc66fc28913e9d63374554692d86fca7695"
+}

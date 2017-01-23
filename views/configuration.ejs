@@ -71,10 +71,11 @@
                   rulesData["trello_rules"].push(newRule);
                 });
 
+                var data_to_send = $.serialize(rulesData);
                 $.ajax({
                   type: "POST",
                   url : "/configuration",
-                  data: $.serialize(rulesData),
+                  data: data_to_send,
                   success: function(data){
                     if (data === "OK") {
                       console.log("Saved data")

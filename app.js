@@ -45,6 +45,8 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   console.log("database connection ready");
 });
 
+const SHOP = 'shop';  // MongoDB collection
+
 // Shopify Authentication
 
 // This function initializes the Shopify OAuth Process
@@ -297,10 +299,17 @@ app.post('/trello_update', function(req, res) {
   res.sendStatus(200);
 });
 
+// Run when configuration is saved
 app.post('/configuration', function(req, res) {
-  console.log(req.session.shop)
-  console.log(req.body);
-  res.sendStatus(200);
+  // Check if shop exists
+  db.collection(SHOP).findOne({_id : req.body.shop }, function(err, result) {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
+    }
+  })
 })
 
 // catch 404 and forward to error handler

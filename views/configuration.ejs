@@ -29,10 +29,8 @@
                   "shop"  : "<%= shop %>",
                   "recieved" : "",
                   "fulfilled" : "",
-                  "extra_rules" : {
-                    "shopify_rules" : [],
-                    "trello_rules" : []
-                  }
+                  "shopify_rules" : [],
+                  "trello_rules" : []
                 };
 
                 // Recieved orders go to
@@ -60,7 +58,7 @@
                   newRule.input = ($(this).find("input").val()); //input
                   newRule.list = ($(this).find(".listOption").val());
 
-                  rulesData["extra_rules"]["shopify_rules"].push(newRule);
+                  rulesData["shopify_rules"].push(newRule);
                 });
 
                 // Trello Rules
@@ -70,7 +68,7 @@
                   newRule.id = (this.id);
                   newRule.list = $(this).find(".listOption").val();
                   newRule.input = $(this).find("input").val();
-                  rulesData["extra_rules"]["trello_rules"].push(newRule);
+                  rulesData["trello_rules"].push(newRule);
                 });
 
                 $.ajax({

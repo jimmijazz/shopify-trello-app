@@ -13,6 +13,8 @@ var config = require('./settings');
 var session = require('express-session');
 var Trello = require("node-trello");
 var OAuth = (require("oauth")).OAuth;
+const mongodb = require("mongodb");
+const ObjectID = mongodb.ObjectID;
 
 var requestUrl = "https://trello.com/1/OAuthGetRequestToken";
 var accessUrl = "https://trello.com/1/OAuthGetAccessToken";
@@ -32,6 +34,16 @@ app.use(cookieParser());
 app.use(session({secret: 'keyboard cat'}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Connect to database before starting the application Server
+mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
+  if (err) {
+    console.log('Unable to connect to the database. Error:',err);
+    process.exit(1);
+  }
+  // Save database object from the vallback for reuse
+  db = database;
+  console.log("database connection ready");
+});
 
 // Shopify Authentication
 

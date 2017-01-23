@@ -76,7 +76,11 @@
                   url : "/configuration",
                   data: rulesData,
                   success: function(data){
-                    console.log(data);
+                    if (data === "OK") {
+                      console.log("Saved data")
+                    } else {
+                      console.log("Failed to save data")
+                    }
                   }
                 });
               }

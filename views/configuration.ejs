@@ -60,7 +60,7 @@
                   newRule.input = ($(this).find("input").val()); //input
                   newRule.list = ($(this).find(".listOption").val());
 
-                  rulesData["shopify_rules"].push(newRule);
+                  rulesData["extra_rules"]["shopify_rules"].push(newRule);
                 });
 
                 // Trello Rules
@@ -70,7 +70,7 @@
                   newRule.id = (this.id);
                   newRule.list = $(this).find(".listOption").val();
                   newRule.input = $(this).find("input").val();
-                  rulesData["trello_rules"].push(newRule);
+                  rulesData["extra_rules"]["trello_rules"].push(newRule);
                 });
 
                 $.ajax({

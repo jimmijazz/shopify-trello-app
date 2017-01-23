@@ -307,6 +307,13 @@ app.post('/configuration', function(req, res) {
       console.log(err);
       res.sendStatus(500);
     } else {
+      if (result === null) {
+        db.collection(SHOP).insertOne({
+          _id : req.body.shop,
+          recieved : req.body.recieved,
+          fulfilled : req.body.fulfilled
+        });
+      }
       console.log(result);
       res.sendStatus(200);
     }

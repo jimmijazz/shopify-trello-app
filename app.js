@@ -135,7 +135,8 @@ app.get('/', function(req, res) {
       });
 
         res.render('configuration', {
-            title: 'configuration',
+            title: 'Configuration',
+            shop : req.session.shop,
             trello : false,
             api_key: config.oauth.api_key,
             shop: req.session.shop
@@ -282,6 +283,12 @@ app.post('/trello_update', function(req, res) {
   console.log(req.body);
   res.sendStatus(200);
 });
+
+app.post('/configuration', function(req, res) {
+  console.log(req.session.shop)
+  console.log(req.body);
+  res.sendStatus(200);
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -313,14 +313,14 @@ app.post('/configuration', function(req, res) {
           recieved : req.body.recieved,
           fulfilled : req.body.fulfilled
         });
+      } else {
+        db.collection(SHOP).update(
+          {
+            {_id : req.body.shop},
+            req.body
+          }
+        )
       }
-      // } else {
-      //   db.collection(SHOP).update(
-      //     {
-      //
-      //     }
-      //   )
-      // }
       console.log(req.body);
       res.sendStatus(200);
     }

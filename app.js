@@ -150,6 +150,8 @@ app.get('/', function(req, res) {
               scope: config.oauth.scope,
               redirect_uri: config.oauth.redirect_uri
           });
+        } else {
+          res.sendStatus(400);
         }
     }
 })

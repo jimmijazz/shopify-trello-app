@@ -1,4 +1,6 @@
-var express = require('express');
+const express = require('express');
+const app = express();
+
 var querystring= require('querystring');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -15,9 +17,6 @@ var OAuth = (require("oauth")).OAuth;
 var requestUrl = "https://trello.com/1/OAuthGetRequestToken";
 var accessUrl = "https://trello.com/1/OAuthGetAccessToken";
 var authorizeUrl = "https://trello.com/1/OAuthAuthorizeToken";
-
-var app = express();
-
 
 
 // view engine setup
@@ -297,8 +296,6 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
@@ -322,4 +319,6 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen((process.env.PORT || 3000));
+
+module.exports = app;
 console.log("Listening on port 3000");

@@ -321,7 +321,7 @@ app.post('/configuration', function(req, res) {
       //     }
       //   )
       // }
-      console.log(result.body);
+      console.log(result);
       res.sendStatus(200);
     }
   })

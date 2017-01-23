@@ -74,7 +74,7 @@
                 $.ajax({
                   type: "POST",
                   url : "/configuration",
-                  data: rulesData,
+                  data: JSON.stringify(rulesData),
                   success: function(data){
                     if (data === "OK") {
                       console.log("Saved data")

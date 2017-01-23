@@ -75,6 +75,7 @@
                 $.ajax({
                   type: "POST",
                   url : "/configuration",
+                  dataType : 'json',
                   data: data_to_send,
                   success: function(data){
                     if (data === "OK") {

@@ -315,10 +315,8 @@ app.post('/configuration', function(req, res) {
         });
       } else {
         db.collection(SHOP).update(
-          {
             {_id : req.body.shop},
             req.body
-          }
         )
       }
       console.log(req.body);

@@ -307,6 +307,7 @@ app.post('/configuration', function(req, res) {
       console.log(err);
       res.sendStatus(500);
     } else {
+      console.log(result);
       res.sendStatus(200);
     }
   })

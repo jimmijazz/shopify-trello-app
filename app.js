@@ -314,7 +314,14 @@ app.post('/configuration', function(req, res) {
           fulfilled : req.body.fulfilled
         });
       }
-      console.log(result);
+      // } else {
+      //   db.collection(SHOP).update(
+      //     {
+      //
+      //     }
+      //   )
+      // }
+      console.log(result.body);
       res.sendStatus(200);
     }
   })

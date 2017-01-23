@@ -320,7 +320,7 @@ app.post('/configuration', function(req, res) {
             req.body
         )
       }
-      console.log(req.body.shopify_rules[0]);
+      console.log(req.body.shopify_rules);
       res.sendStatus(200);
     }
   })

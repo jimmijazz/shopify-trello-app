@@ -128,7 +128,7 @@ app.get('/', function(req, res) {
         },
         "webhook": {
           "topic": "orders/updated",
-          "address": config.app_url + "/orders_updated",
+          "address": config.app_url + "orders_updated",
           "format": "json"
         }
       };
@@ -320,7 +320,7 @@ app.post('/configuration', function(req, res) {
             req.body
         )
       }
-      console.log(req.body.shopify_rules);
+      console.log(req.body);
       res.sendStatus(200);
     }
   })

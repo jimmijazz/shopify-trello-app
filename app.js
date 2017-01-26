@@ -307,9 +307,9 @@ app.post('/configuration', function(req, res) {
       if (String(item).includes("id")) {
         newShopifyRules.push({
           "id"      : req.body[item],
-          "country" : req.body["shopify_rules[" + (req.body[item]) + "][country]"],
-          "input"   : req.body["shopify_rules[" + (req.body[item]) + "][input]"],
-          "list"    : req.body["shopify_rules[" + (req.body[item]) + "][list]"]
+          "country" : req.body["shopify_rules[" + req.body[item] + "][country]"],
+          "input"   : req.body["shopify_rules[" + req.body[item] + "][input]"],
+          "list"    : req.body["shopify_rules[" + req.body[item] + "][list]"]
         });
       };
     }

@@ -303,8 +303,10 @@ app.post('/trello_update', function(req, res) {
 app.post('/configuration', function(req, res) {
   try {
     var newShopifyRules = [];
+    var newTrelloRules = [];
+
     for (var item in req.body) {
-      if (String(item).includes("id")) {
+      if (String(item).includes("id") && String(item).includes("shopify_rules")) {
         var index = (req.body[item] - 1).toString();
         newShopifyRules.push({
           "id"      : req.body[item] -1,
@@ -312,7 +314,13 @@ app.post('/configuration', function(req, res) {
           "input"   : req.body["shopify_rules[" + index + "][input]"],
           "list"    : req.body["shopify_rules[" + index + "][list]"]
         });
-      };
+      } else if (String(item).includes("id") && String(item).includes("trello_rules")) {
+          var index = (req.body[item] - 1).toString();
+          newShopifyRules.push({
+            "id"      : req.body[item] -1,
+            "list" : req.body["shopify_rules[" + index + "][list]"],
+            "input"   : req.body["shopify_rules[" + index + "][input]"],
+          });
     }
   } catch (err) {
     console.log(err);
@@ -329,14 +337,16 @@ app.post('/configuration', function(req, res) {
           _id : req.body.shop,
           recieved : req.body.recieved,
           fulfilled : req.body.fulfilled,
-          shopify_rules : newShopifyRules
+          shopify_rules : newShopifyRules,
+          trello_rules : newTrelloRules
         });
       } else {
         db.collection(SHOP).update(
             {_id : req.body.shop},
             {recieved : req.body.recieved,
             fulfilled : req.body.fulfilled,
-            shopify_rules : newShopifyRules
+            shopify_rules : newShopifyRules,
+            trello_rules : newTrelloRules
           }
         )
       }

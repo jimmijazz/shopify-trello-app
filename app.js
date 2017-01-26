@@ -302,7 +302,7 @@ app.post('/trello_update', function(req, res) {
 // Run when configuration is saved
 app.post('/configuration', function(req, res) {
   console.log(req.body);
-  $.each(req.body.shopify_rules, function() {
+  $.each(req.body, function() {
     console.log(this);
   })
 

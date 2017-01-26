@@ -311,7 +311,9 @@ app.post('/configuration', function(req, res) {
         db.collection(SHOP).insertOne({
           _id : req.body.shop,
           recieved : req.body.recieved,
-          fulfilled : req.body.fulfilled
+          fulfilled : req.body.fulfilled,
+          shopify_rules = req.body.shopify_rules
+
         });
       } else {
         db.collection(SHOP).update(

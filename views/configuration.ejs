@@ -353,6 +353,7 @@
 
         // Shopify Rules
         var shopifyRules = $("#extraShopifyRules").children();
+        var newShopifyRules = {}
         $.each(shopifyRules, function() {
           var newRule = {}
           newRule.id = (this.id);  //id
@@ -360,9 +361,9 @@
           newRule.input = ($(this).find("input").val()); //input
           newRule.list = ($(this).find(".listOption").val());
 
-          rulesData["shopify_rules"][newRule.id] = newRule;
+          newShopifyRules[newRule.id] = newRule;
         });
-
+        rulesData["shopify_rules"] = newShopifyRules;
         // Trello Rules
         var trelloRules = $("#extraTrelloRules").children();
         $.each(trelloRules, function() {

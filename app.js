@@ -307,9 +307,9 @@ app.post('/configuration', function(req, res) {
       if (String(item).includes("id")) {
         newShopifyRules[req.body[item]] = {
           "id"      : req.body[item],
-          "country" : req.body + (req.body[item]).toString() + "[country]",
-          "input"   : req.body + (req.body[item]).toString() + "[input]",
-          "list"    : req.body + (req.body[item]).toString() + "[list]",
+          "country" : req.body + (req.body[item]) + "[country]",
+          "input"   : req.body + (req.body[item]) + "[input]",
+          "list"    : req.body + (req.body[item]) + "[list]",
         };
         console.log(newShopifyRules);
       };

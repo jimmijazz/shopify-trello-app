@@ -301,9 +301,9 @@ app.post('/trello_update', function(req, res) {
 
 // Run when configuration is saved
 app.post('/configuration', function(req, res) {
-  $.each(req.body, function() {
-    console.log(this);
-  })
+  for (var item in req.body) {
+    console.log(item);
+  }
 
   // Check if shop exists
   db.collection(SHOP).findOne({_id : req.body.shop }, function(err, result) {

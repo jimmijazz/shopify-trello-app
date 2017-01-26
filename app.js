@@ -308,11 +308,12 @@ app.post('/configuration', function(req, res) {
       res.sendStatus(500);
     } else {
       if (result === null) {
+        var shopRules = JSON.stringify(req.body.shopify_rules);
         db.collection(SHOP).insertOne({
           _id : req.body.shop,
           recieved : req.body.recieved,
           fulfilled : req.body.fulfilled,
-          shopify_rules : {req.body.shopify_rules}
+          shopify_rules : shopRules
 
         });
       } else {

@@ -314,8 +314,7 @@ app.post('/configuration', function(req, res) {
           _id : req.body.shop,
           recieved : req.body.recieved,
           fulfilled : req.body.fulfilled,
-          shopify_rules : shopify_rules,
-          shop_rules : shopify_rules[0]
+          shopify_rules : shopify_rules
         });
       } else {
         db.collection(SHOP).update(

@@ -373,7 +373,7 @@
           newRule.input = $(this).find("input").val();
           rulesData["trello_rules"][newRule.id] = newRule;
         });
-        console.log(rulesData);
+        console.log(JSON.stringify(rulesData);
         $.ajax({
           type: "POST",
           contentType: 'application/json',

@@ -314,7 +314,6 @@ app.post('/configuration', function(req, res) {
           fulfilled : req.body.fulfilled
         });
       } else {
-
         db.collection(SHOP).update(
             {_id : req.body.shop},
             req.body

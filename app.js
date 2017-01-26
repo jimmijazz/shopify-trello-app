@@ -304,26 +304,26 @@ app.post('/configuration', function(req, res) {
   try {
     var newShopifyRules = [];
     var newTrelloRules = [];
+    var shopifyIndex = 0;
+    var trelloIndex = 0;
 
     for (var item in req.body) {
-      var index = (req.body[item] - 1).toString();
+
       if (String(item).includes("id") && String(item).includes("shopify_rules")) {
         newShopifyRules.push({
-          "id"      : req.body[item] -1,
-          "country" : req.body["shopify_rules[" + index + "][country]"],
-          "input"   : req.body["shopify_rules[" + index + "][input]"],
-          "list"    : req.body["shopify_rules[" + index + "][list]"]
+          "id"      : index,
+          "country" : req.body["shopify_rules[" + shopifyIndex + "][country]"],
+          "input"   : req.body["shopify_rules[" + shopifyIndex + "][input]"],
+          "list"    : req.body["shopify_rules[" + shopifyIndex + "][list]"]
         });
-      }
-    };
-    for (var item in req.body) {
-      var index = (req.body[item] - 1).toString();
-      if (String(item).includes("id") && String(item).includes("trello_rules")) {
-          newTrelloRules.push({
-            "id"      : req.body[item] -1,
-            "list"    : req.body["trello_rules[" + index + "][list]"],
-            "input"   : req.body["trello_rules[" + index + "][input]"],
-          });
+        shopifyIndex ++;
+      } else if (String(item).includes("id") && String(item).includes("shopify_rules")) {
+        newTrelloRules.push({
+          "id"      : trelloIndex,
+          "list"    : req.body["trello_rules[" + trelloIndex + "][list]"],
+          "input"   : req.body["trello_rules[" + trelloIndex + "][input]"],
+        });
+        trelloIndex ++;
       }
     };
   } catch (err) {

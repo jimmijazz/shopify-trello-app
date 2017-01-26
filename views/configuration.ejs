@@ -360,7 +360,7 @@
           newRule.input = ($(this).find("input").val()); //input
           newRule.list = ($(this).find(".listOption").val());
 
-          newShopifyRules[newRule.id] = newRule;
+          newShopifyRules[String(newRule.id)] = newRule;
         });
         rulesData["shopify_rules"] = newShopifyRules;
         // Trello Rules

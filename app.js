@@ -317,7 +317,7 @@ app.post('/configuration', function(req, res) {
           "list"    : req.body["shopify_rules[" + shopifyIndex + "][list]"]
         });
         shopifyIndex ++;
-      } else if (String(item).includes("id") && String(item).includes("shopify_rules")) {
+      } else if (String(item).includes("id") && String(item).includes("trello_rules")) {
         newTrelloRules.push({
           "id"      : trelloIndex,
           "list"    : req.body["trello_rules[" + trelloIndex + "][list]"],

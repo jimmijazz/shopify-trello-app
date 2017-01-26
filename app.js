@@ -314,14 +314,18 @@ app.post('/configuration', function(req, res) {
           "input"   : req.body["shopify_rules[" + index + "][input]"],
           "list"    : req.body["shopify_rules[" + index + "][list]"]
         });
-      } else if (String(item).includes("id") && String(item).includes("trello_rules")) {
+      }
+    };
+    for (var item in req.body) {
+      var index = (req.body[item] - 1).toString();
+      if (String(item).includes("id") && String(item).includes("trello_rules")) {
           newTrelloRules.push({
             "id"      : req.body[item] -1,
             "list"    : req.body["trello_rules[" + index + "][list]"],
             "input"   : req.body["trello_rules[" + index + "][input]"],
           });
       }
-    }
+    };
   } catch (err) {
     console.log(err);
   }

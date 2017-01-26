@@ -312,7 +312,7 @@ app.post('/configuration', function(req, res) {
           _id : req.body.shop,
           recieved : req.body.recieved,
           fulfilled : req.body.fulfilled,
-          shopify_rules = req.body.shopify_rules
+          shopify_rules = req.body["shopify_rules"]
 
         });
       } else {

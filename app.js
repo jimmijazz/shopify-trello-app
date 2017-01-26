@@ -321,6 +321,7 @@ app.post('/configuration', function(req, res) {
             "list" : req.body["shopify_rules[" + index + "][list]"],
             "input"   : req.body["shopify_rules[" + index + "][input]"],
           });
+      }
     }
   } catch (err) {
     console.log(err);

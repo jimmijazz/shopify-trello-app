@@ -305,7 +305,7 @@ app.post('/configuration', function(req, res) {
     var newShopifyRules = [];
     for (var item in req.body) {
       if (String(item).includes("id")) {
-        console.log(req.body[item])
+        console.log(req.body[item] - 1)
         console.log(req.body[item-1])
         console.log(req.body["shopify_rules[" + req.body[item] + "][country]"]);
         newShopifyRules.push({

@@ -303,7 +303,7 @@ app.post('/trello_update', function(req, res) {
 app.post('/configuration', function(req, res) {
   var newShopifyRules = []
   for (var item in req.body) {
-    if (item.includes("id")) {
+    if (String(item).includes("id")) {
       newShopifyRules[req.body.item] = {
         "id"      : req.body.item,
         "country" : req.body + String(req.body.item) + "[country]",

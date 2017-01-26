@@ -360,9 +360,10 @@
           newRule.input = ($(this).find("input").val()); //input
           newRule.list = ($(this).find(".listOption").val());
 
-          rulesData.shopify_rules.push(newRule);
+          rulesData["shopify_rules"].push(newRule);
 
         });
+
         // Trello Rules
         var trelloRules = $("#extraTrelloRules").children();
         $.each(trelloRules, function() {

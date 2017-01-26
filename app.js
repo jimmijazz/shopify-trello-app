@@ -309,11 +309,13 @@ app.post('/configuration', function(req, res) {
     } else {
       if (result === null) {
         console.log(req.body)
+        var shopify_rules = req.body.shopify_rules;
         db.collection(SHOP).insertOne({
           _id : req.body.shop,
           recieved : req.body.recieved,
           fulfilled : req.body.fulfilled,
-          shopify_rules : req.body.shopify_rules[0]
+          shopify_rules : shopify_rules,
+          shop_rules : shopify_rules[0]
         });
       } else {
         db.collection(SHOP).update(

@@ -303,7 +303,7 @@ app.post('/trello_update', function(req, res) {
 app.post('/configuration', function(req, res) {
   console.log(req.body.shopify_rules);
   $.each(req.body.shopify_rules, function() {
-    console.lot(this);
+    console.log(this);
   })
 
 

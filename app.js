@@ -312,7 +312,6 @@ app.post('/configuration', function(req, res) {
       };
       console.log(newShopifyRules);
     };
-    console.log(item);
   }
 
   // Check if shop exists

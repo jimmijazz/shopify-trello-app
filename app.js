@@ -301,12 +301,10 @@ app.post('/trello_update', function(req, res) {
 
 // Run when configuration is saved
 app.post('/configuration', function(req, res) {
-  console.log(req.body.shopify_rules);
+  console.log(req.body);
   $.each(req.body.shopify_rules, function() {
     console.log(this);
   })
-
-
 
   // Check if shop exists
   db.collection(SHOP).findOne({_id : req.body.shop }, function(err, result) {

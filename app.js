@@ -301,6 +301,8 @@ app.post('/trello_update', function(req, res) {
 
 // Run when configuration is saved
 app.post('/configuration', function(req, res) {
+  console.log(req.body.shopify_rules);
+
   // Check if shop exists
   db.collection(SHOP).findOne({_id : req.body.shop }, function(err, result) {
     if (err) {
@@ -308,7 +310,6 @@ app.post('/configuration', function(req, res) {
       res.sendStatus(500);
     } else {
       if (result === null) {
-        console.log(req.body)
         db.collection(SHOP).insertOne({
           _id : req.body.shop,
           recieved : req.body.recieved,

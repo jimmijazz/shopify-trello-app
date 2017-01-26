@@ -359,7 +359,6 @@
           newRule.country = ($(this).find(".optionSelect").val()); // country/tag
           newRule.input = ($(this).find("input").val()); //input
           newRule.list = ($(this).find(".listOption").val());
-          console.log(newRule);
           rulesData["shopify_rules"].push(newRule);
 
         });
@@ -373,7 +372,6 @@
           newRule.input = $(this).find("input").val();
           rulesData["trello_rules"][newRule.id] = newRule;
         });
-        console.log(JSON.stringify(rulesData));
         $.ajax({
           type: "POST",
           contentType: 'application/json',

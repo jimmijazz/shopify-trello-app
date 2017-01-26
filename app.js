@@ -311,7 +311,7 @@ app.post('/configuration', function(req, res) {
 
       if (String(item).includes("id") && String(item).includes("shopify_rules")) {
         newShopifyRules.push({
-          "id"      : index,
+          "id"      : shopifyIndex,
           "country" : req.body["shopify_rules[" + shopifyIndex + "][country]"],
           "input"   : req.body["shopify_rules[" + shopifyIndex + "][input]"],
           "list"    : req.body["shopify_rules[" + shopifyIndex + "][list]"]

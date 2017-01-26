@@ -301,14 +301,14 @@ app.post('/trello_update', function(req, res) {
 
 // Run when configuration is saved
 app.post('/configuration', function(req, res) {
-  var newShopifyRules = []
+  var newShopifyRules = [];
   for (var item in req.body) {
     if (String(item).includes("id")) {
-      newShopifyRules[req.body.item] = {
-        "id"      : req.body.item,
-        "country" : req.body + String(req.body.item) + "[country]",
-        "input"   : req.body + String(req.body.item) + "[input]",
-        "list"    : req.body + String(req.body.item) + "[list]",
+      newShopifyRules[req.body[item]] = {
+        "id"      : req.body[item],
+        "country" : req.body + String(req.body[item]) + "[country]",
+        "input"   : req.body + String(req.body[item]) + "[input]",
+        "list"    : req.body + String(req.body[item]) + "[list]",
       };
       console.log(newShopifyRules);
     };

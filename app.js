@@ -306,8 +306,8 @@ app.post('/configuration', function(req, res) {
     var newTrelloRules = [];
 
     for (var item in req.body) {
+      var index = (req.body[item] - 1).toString();
       if (String(item).includes("id") && String(item).includes("shopify_rules")) {
-        var index = (req.body[item] - 1).toString();
         newShopifyRules.push({
           "id"      : req.body[item] -1,
           "country" : req.body["shopify_rules[" + index + "][country]"],
@@ -315,10 +315,9 @@ app.post('/configuration', function(req, res) {
           "list"    : req.body["shopify_rules[" + index + "][list]"]
         });
       } else if (String(item).includes("id") && String(item).includes("trello_rules")) {
-          var index = (req.body[item] - 1).toString();
           newTrelloRules.push({
             "id"      : req.body[item] -1,
-            "list" : req.body["trello_rules[" + index + "][list]"],
+            "list"    : req.body["trello_rules[" + index + "][list]"],
             "input"   : req.body["trello_rules[" + index + "][input]"],
           });
       }

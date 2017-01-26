@@ -305,9 +305,6 @@ app.post('/configuration', function(req, res) {
     var newShopifyRules = [];
     for (var item in req.body) {
       if (String(item).includes("id")) {
-        console.log(req.body[item] - 1)
-        console.log(req.body[item-1])
-        console.log(req.body["shopify_rules[" + req.body[item] + "][country]"]);
         var index = (req.body[item] - 1).toString();
         newShopifyRules.push({
           "id"      : req.body[item] -1,
@@ -317,8 +314,6 @@ app.post('/configuration', function(req, res) {
         });
       };
     }
-    console.log(newShopifyRules);
-
   } catch (err) {
     console.log(err);
   }
@@ -334,12 +329,15 @@ app.post('/configuration', function(req, res) {
           _id : req.body.shop,
           recieved : req.body.recieved,
           fulfilled : req.body.fulfilled,
-          shopify_rules : req.body.shopify_rules
+          shopify_rules : newShopifyRules
         });
       } else {
         db.collection(SHOP).update(
             {_id : req.body.shop},
-            req.body
+            {recieved : req.body.recieved,
+            fulfilled : req.body.fulfilled,
+            shopify_rules : newShopifyRules
+          }
         )
       }
       console.log(req.body);

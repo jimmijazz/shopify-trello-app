@@ -311,9 +311,10 @@ app.post('/configuration', function(req, res) {
           "input"   : req.body["shopify_rules[" + (req.body[item]) + "][input]"],
           "list"    : req.body["shopify_rules[" + (req.body[item]) + "][list]"]
         });
-        console.log(newShopifyRules);
       };
     }
+    console.log(newShopifyRules);
+
   } catch (err) {
     console.log(err);
   }

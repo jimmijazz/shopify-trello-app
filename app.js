@@ -305,12 +305,12 @@ app.post('/configuration', function(req, res) {
     var newShopifyRules = [];
     for (var item in req.body) {
       if (String(item).includes("id")) {
-        newShopifyRules[req.body[item]] = {
+        newShopifyRules.push({
           "id"      : req.body[item],
-          "country" : "shopify_rules[" + (req.body[item]) + "][country]",
-          "input"   : "shopify_rules[" + (req.body[item]) + "][input]",
-          "list"    : "shopify_rules[" + (req.body[item]) + "][list]",
-        };
+          "country" : req.body["shopify_rules[" + (req.body[item]) + "][country]"],
+          "input"   : req.body["shopify_rules[" + (req.body[item]) + "][input]"],
+          "list"    : req.body["shopify_rules[" + (req.body[item]) + "][list]"]
+        });
         console.log(newShopifyRules);
       };
     }

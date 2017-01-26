@@ -308,6 +308,7 @@ app.post('/configuration', function(req, res) {
       res.sendStatus(500);
     } else {
       if (result === null) {
+        console.log(req.body)
         db.collection(SHOP).insertOne({
           _id : req.body.shop,
           recieved : req.body.recieved,

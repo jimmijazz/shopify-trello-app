@@ -122,6 +122,10 @@
       <a id="connectLink" href="#" class="full-width" style="text-align:center;">Click here to authorize Trello</a>
     </section>
 
+    <section id="savedMsg" class="">
+      <a id="savedMsgLink" href="#" class="full-width" style="text-align:center;"></a>
+    </section>
+
     <div id="loggedin" style="margin-right:10px;">
         <span id="header" class="columns twelve" style="text-align:right;">
             Logged in to <a href="https://trello.com">Trello</a> as <span id="fullName">.</span></br>
@@ -180,6 +184,7 @@
       <script type="text/javascript">
         var listsList = ""; // {BoardName : {list object}}
         var rule_count = 0;
+        $("#savedMsg").toggle();
 
         var shopifyRule = "<li class='extraRule'><section class='columns eleven' style=margin-top:5px;'> <span class='column one'>Orders with</span>\
             <select class='optionSelect columns two' style='margin-left:0px; margin-right:5px;'>\
@@ -219,6 +224,19 @@
             $("#loggedout").toggle(!isLoggedIn);
             $("#loggedin").toggle(isLoggedIn);
         };
+
+        var saveMessage = function(text) {
+          var isSaved = true;
+          $("savedMsg").removeClass();
+          $("#savedMsgLink").val(text)
+          if (text.includes("Error")) {
+            $("#savedMsg").addClass("full-width alert error");
+          } else {
+            $("#savedMsg").addClass("full-width alert success");
+          }
+          $("#savedMsg").toggle(isSaved);
+
+        }
 
         updateLoggedIn();
 
@@ -326,64 +344,66 @@
       <script type="text/javascript"> // Shopify Header
 
       // The users preferences to be sent to the server
-      var submitForm = function() {
-        var rulesData = {
-          "shop"  : "<%= shop %>",
-          "recieved" : "",
-          "fulfilled" : "",
-          "shopify_rules" : [],
-          "trello_rules" : {}
-        };
-
-        // Recieved orders go to
-        var recieved = $("#recievedOrders").find(":selected");
-        if(recieved.val() === "-") {
-          rulesData["recieved"] = null;
-        } else {
-          rulesData["recieved"] = recieved.attr('id');
-        };
-
-        // Fulfilled orders go to
-        var fulfilled = $("#fulfilledOrders").find(":selected");
-        if(fulfilled.val() === "-") {
-          rulesData["fulfilled"] = null;
-        } else {
-          rulesData["fulfilled"] = fulfilled.attr('id');
-        };
-
-        // Shopify Rules
-        var shopifyRules = $("#extraShopifyRules").children();
-        $.each(shopifyRules, function() {
-          var newRule = {}
-          newRule.id = (this.id);  //id
-          newRule.country = ($(this).find(".optionSelect").val()); // country/tag
-          newRule.input = ($(this).find("input").val()); //input
-          newRule.list = ($(this).find(".listOption").attr('id'));
-          rulesData["shopify_rules"].push(newRule);
-
-        });
-
-        // Trello Rules
-        var trelloRules = $("#extraTrelloRules").children();
-        $.each(trelloRules, function() {
-          var newRule = {};
-          newRule.id = (this.id);
-          newRule.list = $(this).find(".listOption").val();
-          newRule.input = $(this).find("input").attr('id');
-          rulesData["trello_rules"][newRule.id] = newRule;
-        });
-        $.ajax({
-          type: "POST",
-          contentType: 'application/json',
-          url : "/configuration",
-          data: rulesData,
-          success: function(data){
-            console.log(data);
-          }
-        });
-
-
-      };
+      // var submitForm = function() {
+      //   var rulesData = {
+      //     "shop"  : "<%= shop %>",
+      //     "recieved" : "",
+      //     "fulfilled" : "",
+      //     "shopify_rules" : [],
+      //     "trello_rules" : {}
+      //   };
+      //
+      //   // Recieved orders go to
+      //   var recieved = $("#recievedOrders").find(":selected");
+      //   if(recieved.val() === "-") {
+      //     rulesData["recieved"] = null;
+      //   } else {
+      //     rulesData["recieved"] = recieved.attr('id');
+      //   };
+      //
+      //   // Fulfilled orders go to
+      //   var fulfilled = $("#fulfilledOrders").find(":selected");
+      //   if(fulfilled.val() === "-") {
+      //     rulesData["fulfilled"] = null;
+      //   } else {
+      //     rulesData["fulfilled"] = fulfilled.attr('id');
+      //   };
+      //
+      //   // Shopify Rules
+      //   var shopifyRules = $("#extraShopifyRules").children();
+      //   $.each(shopifyRules, function() {
+      //     var newRule = {}
+      //     newRule.id = (this.id);  //id
+      //     newRule.country = ($(this).find(".optionSelect").val()); // country/tag
+      //     newRule.input = ($(this).find("input").attr('id')); //input
+      //     newRule.list = ($(this).find(".listOption").attr('id'));
+      //     rulesData["shopify_rules"].push(newRule);
+      //
+      //   });
+      //
+      //   // Trello Rules
+      //   var trelloRules = $("#extraTrelloRules").children();
+      //   $.each(trelloRules, function() {
+      //     var newRule = {};
+      //     newRule.id = (this.id);
+      //     newRule.list = $(this).find(".listOption").attr('id');
+      //     newRule.input = $(this).find("input").val();
+      //     rulesData["trello_rules"][newRule.id] = newRule;
+      //   });
+      //
+      //   // Send form results to server
+      //   $.ajax({
+      //     type: "POST",
+      //     contentType: 'application/json',
+      //     url : "/configuration",
+      //     data: rulesData,
+      //     success: function(data){
+      //       console.log("this is the" data);
+      //     }
+      //   });
+      //
+      //
+      // };
 
       </script>
     </footer>

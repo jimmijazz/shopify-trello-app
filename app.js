@@ -307,8 +307,9 @@ app.post('/configuration', function(req, res) {
     var shopifyIndex = 0;
     var trelloIndex = 0;
 
+    // For each rule sent add the rule as an object to appropriate list
     for (var item in req.body) {
-
+      // Shopify Rule
       if (String(item).includes("id") && String(item).includes("shopify_rules")) {
         newShopifyRules.push({
           "id"      : shopifyIndex,
@@ -316,7 +317,9 @@ app.post('/configuration', function(req, res) {
           "input"   : req.body["shopify_rules[" + shopifyIndex + "][input]"],
           "list"    : req.body["shopify_rules[" + shopifyIndex + "][list]"]
         });
-        shopifyIndex ++;
+        shopifyIndex ++;  // Increment unique ID for each rule
+
+      // Trello Rule
       } else if (String(item).includes("id") && String(item).includes("trello_rules")) {
         newTrelloRules.push({
           "id"      : trelloIndex,

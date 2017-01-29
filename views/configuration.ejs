@@ -20,7 +20,6 @@
       $("#savedMsg").toggle(false);
 
       var saveMessage = function(text) {
-        $("#savedMsg").toggle(false);
         $("savedMsg").removeClass();
         $("#savedMsgLink").text(text);
         if (text.includes("Error")) {
@@ -40,6 +39,11 @@
             primary: {
               label: "Save",
               callback: function() {
+
+                // Make sure save message is hidden
+                $("#savedMsg").toggle(false);
+
+                // Dictionary that gets sent to server
                 var rulesData = {
                   "shop"  : "<%= shop %>",
                   "recieved" : "",
@@ -48,7 +52,7 @@
                   "trello_rules" : []
                 };
 
-                // Recieved orders go to
+                // Recieved orders go to this list
                 var recieved = $("#recievedOrders").find(":selected");
                 if(recieved.val() === "-") {
                   rulesData["recieved"] = null;
@@ -56,7 +60,7 @@
                   rulesData["recieved"] = recieved.attr('id');
                 };
 
-                // Fulfilled orders go to
+                // Fulfilled orders go to this list
                 var fulfilled = $("#fulfilledOrders").find(":selected");
                 if(fulfilled.val() === "-") {
                   rulesData["fulfilled"] = null;
@@ -71,7 +75,7 @@
                   newRule.id = (this.id);  //id
                   newRule.country = ($(this).find(".optionSelect").val()); // country/tag
                   newRule.input = ($(this).find("input").val()); //input
-                  newRule.list = ($(this).find(".listOption").val());
+                  newRule.list = ($(this).find(".listOption").attr('id'));
 
                   rulesData["shopify_rules"].push(newRule);
                 });
@@ -85,6 +89,7 @@
                   newRule.input = $(this).find("input").val();
                   rulesData["trello_rules"].push(newRule);
                 });
+
                 $.ajax({
                   type: "POST",
                   url : "/configuration",
@@ -206,7 +211,9 @@
             <select class='optionSelect columns two' style='margin-left:0px; margin-right:5px;'>\
               <option>Country</option>\
               <option>Tag</option>\
+              <option>Product Barcode</option>\
               <option>Product SKU</option>\
+              <option>Product Name</option>\
             </select>\
             <input type='text' placeholder='Enter your value' class='columns three' style='margin-right:5px;' />\
             <span style='margin-right:10px;'>go to list</span>\

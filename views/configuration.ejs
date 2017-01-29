@@ -17,6 +17,21 @@
       <!-- SHOPIFY HEADER -->
       <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
       <script>
+      $("#savedMsg").toggle(false);
+
+      var saveMessage = function(text) {
+        var isSaved = true;
+        $("savedMsg").removeClass();
+        $("#savedMsgLink").val(text)
+        if (text.includes("Error")) {
+          $("#savedMsg").addClass("full-width alert error");
+        } else {
+          $("#savedMsg").addClass("full-width alert success");
+        }
+        $("#savedMsg").toggle(isSaved);
+
+      }
+
       ShopifyApp.ready(function(){
         ShopifyApp.Bar.initialize({
           title: '<%= title %>',
@@ -187,7 +202,6 @@
       <script type="text/javascript">
         var listsList = ""; // {BoardName : {list object}}
         var rule_count = 0;
-        $("#savedMsg").toggle();
 
         var shopifyRule = "<li class='extraRule'><section class='columns eleven' style=margin-top:5px;'> <span class='column one'>Orders with</span>\
             <select class='optionSelect columns two' style='margin-left:0px; margin-right:5px;'>\
@@ -227,19 +241,6 @@
             $("#loggedout").toggle(!isLoggedIn);
             $("#loggedin").toggle(isLoggedIn);
         };
-
-        var saveMessage = function(text) {
-          var isSaved = true;
-          $("savedMsg").removeClass();
-          $("#savedMsgLink").val(text)
-          if (text.includes("Error")) {
-            $("#savedMsg").addClass("full-width alert error");
-          } else {
-            $("#savedMsg").addClass("full-width alert success");
-          }
-          $("#savedMsg").toggle(isSaved);
-
-        }
 
         updateLoggedIn();
 

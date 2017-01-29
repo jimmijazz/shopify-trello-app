@@ -249,9 +249,8 @@
             if (data.length === 0 ) {
               return ;
             } else {
-              var id = data._id;
-
               if (data.recieved !== "null") {
+                console.log(data.recieved);
                 $("#recievedOrders").val(data.recieved);
               };
 

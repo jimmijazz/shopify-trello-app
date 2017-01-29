@@ -251,11 +251,11 @@
             } else {
               if (data.recieved !== "null") {
                 console.log(data.recieved);
-                $("recievedOrders option[id=" + data.recieved + "]").attr("selected", "selected");
+                $("#recievedOrders option[id=" + data.recieved + "]").attr("selected", "selected");
               };
 
               if (data.fulfilled !== "null") {
-                console.log("yes")
+                $("#fulfilledOrders option[id=" + data.fulfilled + "]").attr("selected", "selected");
 
               };
 

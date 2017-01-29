@@ -251,7 +251,7 @@
             } else {
               if (data.recieved !== "null") {
                 console.log(data.recieved);
-                $("#recievedOrders").val(data.recieved);
+                $("#recievedOrders").val(String(data.recieved));
               };
 
               if (data.fulfilled !== "null") {
@@ -268,7 +268,6 @@
                 console.log("yes")
 
               }
-              console.log(data);
             }
           }
         };

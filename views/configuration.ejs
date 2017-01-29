@@ -310,6 +310,7 @@
 
             });
           };
+          initialSetup();
         };
 
         Trello.authorize({
@@ -351,42 +352,44 @@
           });
         };
 
-        // Get customers rules from the database
-        $.ajax({
-          type: "POST",
-          url: "/get_configuration",
-          data : {"shop" : "<%= shop %>" },
-          success : function (data) {
-            setInitialSettings(data);
-          }
-        });
-
-        function setInitialSettings(data) {
-          // Sets the initial config settings based on
-          if (data.length === 0 ) {
-            return ;
-          } else {
-            var id = data._id;
-
-            if (data.recieved !== "null") {
-              $("#recievedOrders").val(data.recieved);
-            };
-
-            if (data.fulfilled !== "null") {
-              console.log("yes")
-
-            };
-
-            if (data.shopify_rules.length !== 0) {
-              console.log("yes")
-
-            };
-
-            if (data.trello_rules.length !== 0) {
-              console.log("yes")
-
+        var initialSetup = function() {
+          // Get customers rules from the database
+          $.ajax({
+            type: "POST",
+            url: "/get_configuration",
+            data : {"shop" : "<%= shop %>" },
+            success : function (data) {
+              setInitialSettings(data);
             }
-            console.log(data);
+          });
+
+          function setInitialSettings(data) {
+            // Sets the initial config settings based on
+            if (data.length === 0 ) {
+              return ;
+            } else {
+              var id = data._id;
+
+              if (data.recieved !== "null") {
+                $("#recievedOrders").val(data.recieved);
+              };
+
+              if (data.fulfilled !== "null") {
+                console.log("yes")
+
+              };
+
+              if (data.shopify_rules.length !== 0) {
+                console.log("yes")
+
+              };
+
+              if (data.trello_rules.length !== 0) {
+                console.log("yes")
+
+              }
+              console.log(data);
+            }
           }
         }
 

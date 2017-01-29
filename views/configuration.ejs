@@ -75,14 +75,16 @@
                   url : "/configuration",
                   dataType : 'json',
                   data: rulesData,
-                  success: function(data){
-                    if (data === "OK") {
-                      console.log(data);
-                      savedMsg(data);
-                      console.log("Saved data")
-                    } else {
-                      console.log("Failed to save data")
-                    }
+                  statusCode: {
+                    200 : function() {
+                      console.log("Settings saved");
+                      savedMsg("Success. Your settings were saved.");
+                    };
+
+                  };
+                  error: function(){
+                    console.log("Error.");
+                    savedMsg("Error. Your settings were not saved properly");
                   }
                 });
               }

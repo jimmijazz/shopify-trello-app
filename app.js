@@ -361,6 +361,17 @@ app.post('/configuration', function(req, res) {
       res.sendStatus(200);
     }
   })
+});
+
+// Returns the current settings for a shop
+app.post('/get_configuration' function(req, res) {
+  db.collection(SHOP).findOne({_id : req.body.shop }, function(err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    };
+  })
 })
 
 // catch 404 and forward to error handler

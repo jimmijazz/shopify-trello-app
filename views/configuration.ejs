@@ -233,6 +233,16 @@
             <a href='#' class='column one'><i class='icon-close'></i></a>\
           </section></li>"
 
+        // Get customers rules from the database
+        $.ajax({
+          type: "POST",
+          url: "/get_configuration",
+          data : {"shop" : <%= shop %> },
+          success : function(data) {
+            console.log(data);
+          }
+        });
+
         // Event handlers
         $("#connectLink")
         .click(function(){

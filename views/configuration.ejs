@@ -76,9 +76,9 @@
                   dataType : 'json',
                   data: rulesData,
                   success: function(data){
-                    console.log(data)
-                    saveMessage(data);
                     if (data === "OK") {
+                      console.log(data);
+                      savedMsg(data);
                       console.log("Saved data")
                     } else {
                       console.log("Failed to save data")

@@ -248,7 +248,26 @@
           if (data.length === 0 ) {
             return ;
           } else {
-            console.log(typeof(data));
+            var id = data._id;
+
+            if (data.recieved !== "null") {
+              console.log("yes")
+            };
+
+            if (data.fulfilled !== "null") {
+              console.log("yes")
+
+            };
+
+            if (data.shopify_rules.length !== 0) {
+              console.log("yes")
+
+            };
+
+            if (data.trello_rules.length !== 0) {
+              console.log("yes")
+
+            }
             console.log(data);
           }
         }

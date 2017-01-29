@@ -237,7 +237,7 @@
         $.ajax({
           type: "POST",
           url: "/get_configuration",
-          data : {"shop" : <%= shop %> },
+          data : {"shop" : "<%= shop %>" },
           success : function(data) {
             console.log(data);
           }

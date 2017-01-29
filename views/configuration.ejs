@@ -238,7 +238,9 @@
           type: "POST",
           url: "/get_configuration",
           data : {"shop" : "<%= shop %>" },
-          success : setInitialSettings(data)
+          success : function (data) {
+            setInitialSettings(data);
+          }
         });
 
         function setInitialSettings(data) {

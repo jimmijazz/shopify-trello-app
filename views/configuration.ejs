@@ -20,15 +20,15 @@
       $("#savedMsg").toggle(false);
 
       var saveMessage = function(text) {
-        var isSaved = true;
+        $("#savedMsg").toggle(false);
         $("savedMsg").removeClass();
-        $("#savedMsgLink").val(text)
+        $("#savedMsgLink").text(text);
         if (text.includes("Error")) {
           $("#savedMsg").addClass("full-width alert error");
         } else {
           $("#savedMsg").addClass("full-width alert success");
         }
-        $("#savedMsg").toggle(isSaved);
+        $("#savedMsg").toggle(true);
 
       }
 

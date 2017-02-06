@@ -230,15 +230,15 @@
           <a href='#' class='column one'><i class='icon-close'></i></a>\
         </section></li>";
 
-      // Authorize Trello with stored token if it exists
-      Trello.authorize({
-        name  : "Shopify Orders",
-        interactive : false,
-        success : onAuthorize,
-        error: function(err) {
-          console.log(err);
-        }
-      });
+      // // Authorize Trello with stored token if it exists
+      // Trello.authorize({
+      //   name  : "Shopify Orders",
+      //   interactive : false,
+      //   success : onAuthorize,
+      //   error: function(err) {
+      //     console.log(err);
+      //   }
+      // });
 
       var updateLoggedIn = function() {
           var isLoggedIn = Trello.authorized();

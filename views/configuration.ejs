@@ -339,7 +339,12 @@
         } else {
             if (data.recieved !== "null") {
               console.log(data.recieved);
-              $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
+              console.log()
+              try {
+                $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
+              } catch(e) {
+                console.log(e);
+              };
             };
 
             if (data.fulfilled !== "null") {

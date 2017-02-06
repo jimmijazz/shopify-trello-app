@@ -15,8 +15,8 @@
   <body>
 
       <!-- SHOPIFY HEADER -->
-      <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-      <script>
+    <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script>
       $("#savedMsg").toggle(false);
 
       var saveMessage = function(text) {
@@ -143,9 +143,6 @@
     <section id="loggedout" class="full-width alert warning">
       <a id="connectLink" href="#" class="full-width" style="text-align:center;">Click here to authorize Trello</a>
     </section>
-
-
-
     <div id="loggedin" style="margin-right:10px;">
         <span id="header" class="columns twelve" style="text-align:right;">
             Logged in to <a href="https://trello.com">Trello</a> as <span id="fullName">.</span></br>
@@ -234,8 +231,7 @@
         </section></li>"
 
       // Event handlers
-      $("#connectLink")
-      .click(function(){
+      $("#connectLink").click(function(){
           Trello.authorize({
             interactive:false,
             name: "Shopify Orders",
@@ -359,10 +355,7 @@
           if (data.length === 0 ) {
             return ;
           } else {
-              $("recievedOrders").css("border", "none");
               if (data.recieved !== "null") {
-                console.log(data.recieved);
-                console.log($('#recievedOrders option[id='+data.recieved+']'));
                 $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
               };
 

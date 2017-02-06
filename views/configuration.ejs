@@ -32,7 +32,7 @@
 
       }
 
-      ShopifyApp.ready(function(){
+      ShopifyApp.ready(function() {
         ShopifyApp.Bar.initialize({
           title: '<%= title %>',
           icon: '/images/logo.png',
@@ -118,7 +118,7 @@
                   // Link Button that opens in the app
                   { label: "Rate Us", href: "/update", target: "app" },
                   // Button with a callback function
-                  { label: "Feature Request", callback: function(){ alert("destroy") } }
+                  { label: "Feature Request", callback: function() { alert("destroy") } }
                 ]
               },
               {
@@ -210,14 +210,7 @@
       try {
         Trello.authorize({
           name  : "Shopify Orders",
-          interactive : false
-          scope : {
-            read    : 'allowRead',
-            write   : 'allowWrite',
-            account : 'allowAccount'
-          },
-          expiration: "never",
-          persist : true,
+          interactive : false,
           success : onAuthorize
         })
       } catch(e) {
@@ -260,7 +253,7 @@
       // Event handlers
       $("#disconnect").click(logout);
 
-      $("#connectLink").click(function(){
+      $("#connectLink").click(function() {
         try {
           Trello.authorize({
             type  : "popup",
@@ -363,7 +356,7 @@
       };
 
       // Get customers rules from the database
-      function setConfiguration(){
+      function setConfiguration() {
         $.ajax({
           type: "POST",
           url: "/get_configuration",

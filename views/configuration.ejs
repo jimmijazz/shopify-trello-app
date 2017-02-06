@@ -366,7 +366,8 @@
             return ;
           } else {
               if (data.recieved !== "null") {
-                  $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
+                console.log(data.recieved);
+                $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
               };
 
               if (data.fulfilled !== "null") {
@@ -379,7 +380,6 @@
 
               if (data.trello_rules.length !== 0) {
                 console.log("yes")
-
             }
           }
         };

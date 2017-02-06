@@ -322,17 +322,6 @@
 
       });
 
-      // Get customers rules from the database
-      $.ajax({
-        type: "POST",
-        url: "/get_configuration",
-        data : {"shop" : "<%= shop %>" },
-        success : function (data) {
-          setInitialSettings(data);
-        }
-      });
-
-
       function addExtraShopifyRule() {
         $("#extraShopifyRules").append($(shopifyRule));
         var lastRule = $("#extraShopifyRules li:last-child .listOption")
@@ -362,6 +351,16 @@
       };
 
       $(document).ready(function() {
+        // Get customers rules from the database
+        $.ajax({
+          type: "POST",
+          url: "/get_configuration",
+          data : {"shop" : "<%= shop %>" },
+          success : function (data) {
+            setInitialSettings(data);
+          }
+        });
+        
         function setInitialSettings(data) {
           // Sets the initial config settings based on users saved settings.
           if (data.length === 0 ) {

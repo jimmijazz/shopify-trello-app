@@ -237,9 +237,13 @@
       $("#connectLink")
       .click(function(){
           Trello.authorize({
-              type: "popup",
-              success: onAuthorize,
-              name: 'Trello Shopify App'
+            interactive:false,
+            name: "Shopify Orders",
+            scope: {
+              read: "allowRead", write: "allowWrite",
+            },
+            expire: "never",
+            success: onAuthorize,
           })
       });
 
@@ -288,8 +292,8 @@
             getLists(res[board]["id"], res[board]['name'], function(item) {
               listsList += item;
             });
+            setConfiguration();
           };
-          setConfiguration();
         }, error);
 
         function getLists(boardID, boardName, callback) {
@@ -309,20 +313,7 @@
 
           });
         };
-
-
       };
-
-      Trello.authorize({
-          interactive:false,
-          name: "Shopify Orders",
-          scope: {
-            read: "allowRead", write: "allowWrite",
-          },
-          expire: "never",
-          success: onAuthorize,
-
-      });
 
       function addExtraShopifyRule() {
         $("#extraShopifyRules").append($(shopifyRule));

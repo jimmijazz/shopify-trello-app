@@ -219,7 +219,7 @@
             <option>-</option>\
           </select>\
           <a class='columns one' href='#'><i class='icon-close'></i></a>\
-        </section></li>"
+        </section></li>";
 
 
       var trelloRule = "<li class='extraRule'><section class='columns eleven'style=margin-top:5px;'><span class='column one'>Orders in </span>\
@@ -228,10 +228,11 @@
           <input type='text' class='column two' />\
           <span class='column two'>tag assigned to them.</span>\
           <a href='#' class='column one'><i class='icon-close'></i></a>\
-        </section></li>"
+        </section></li>";
 
       // Event handlers
       $("#connectLink").click(function(){
+        console.log("Authorizing...");
           Trello.authorize({
             interactive:false,
             name: "Shopify Orders",
@@ -242,6 +243,8 @@
             success: onAuthorize,
           })
       });
+
+      $("#disconnect").click(logout);
 
       var updateLoggedIn = function() {
           var isLoggedIn = Trello.authorized();
@@ -256,8 +259,6 @@
           updateLoggedIn();
           window.location.reload(false);  //Reload the page
       };
-      $("#disconnect").click(logout);
-
 
       // Trello error message
       var error = function(errorMsg) {

@@ -367,9 +367,13 @@
           } else {
             if (data.recieved !== "null") {
               console.log(data.recieved);
-              console.log($("#recievedOrders option[id=" + data.recieved + "]"));
+              $('#recievedOrders option').filter(function() {
+                return this.id === data.recieved
+              }).prop('selected');
 
-              $("#recievedOrders option[id=" + data.recieved + "]").attr("selected", "selected");
+              // console.log($("#recievedOrders option[id=" + data.recieved + "]"));
+              //
+              // $("#recievedOrders option[id=" + data.recieved + "]").attr("selected", "selected");
             };
 
             if (data.fulfilled !== "null") {

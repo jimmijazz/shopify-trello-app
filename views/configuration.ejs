@@ -231,7 +231,6 @@
         </section></li>";
 
       // // Authorize Trello with stored token if it exists
-      try {
         Trello.authorize({
           type  : "popup",
           name  : "Shopify Orders",
@@ -244,10 +243,8 @@
           persist : true,
           success : onAuthorize,
           interactive : false
-        })
-      } catch(e) {
-        console.log(e);
-      };
+        });
+
 
       var updateLoggedIn = function() {
           var isLoggedIn = Trello.authorized();

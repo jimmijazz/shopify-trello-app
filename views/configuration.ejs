@@ -210,7 +210,10 @@
       Trello.authorize({
         name  : "Shopify Orders",
         interactive : false,
-        success : onAuthorize
+        success : onAuthorize,
+        error: function(err) {
+          console.log(err);
+        }
       });
 
 

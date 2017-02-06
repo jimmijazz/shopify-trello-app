@@ -231,14 +231,23 @@
         </section></li>";
 
       // // Authorize Trello with stored token if it exists
-      // Trello.authorize({
-      //   name  : "Shopify Orders",
-      //   interactive : false,
-      //   success : onAuthorize,
-      //   error: function(err) {
-      //     console.log(err);
-      //   }
-      // });
+      try {
+        Trello.authorize({
+          type  : "popup",
+          name  : "Shopify Orders",
+          scope : {
+            read    : 'allowRead',
+            write   : 'allowWrite',
+            account : 'allowAccount'
+          },
+          expiration: "never",
+          persist : true,
+          success : onAuthorize,
+          interactive : false
+        })
+      } catch(e) {
+        console.log(e);
+      };
 
       var updateLoggedIn = function() {
           var isLoggedIn = Trello.authorized();

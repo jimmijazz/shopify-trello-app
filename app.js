@@ -107,6 +107,7 @@ app.get('/modal_content', function(req, res) {
 });
 
 app.post('/trello', function(req, res) {
+  // Creates new Trello object
   req.session.trello_token = req.body.trello_token;
   var t = new Trello(config.trello_key,req.session.trello_token);
   req.session.trello = t;

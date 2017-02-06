@@ -13,6 +13,8 @@
 		</script>
 	</head>
   <body>
+    <!-- Trello API -->
+    <script src="https://api.trello.com/1/client.js?key=dbdd3808d314c362931b7c8918766c03"></script>
 
       <!-- SHOPIFY HEADER -->
     <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -199,7 +201,6 @@
     </div>
     </section>
   </main>
-    <script src="https://api.trello.com/1/client.js?key=dbdd3808d314c362931b7c8918766c03"></script>
     <script type="text/javascript">
 
       var listsList = ""; // {BoardName : {list object}}
@@ -235,10 +236,16 @@
         console.log("Authorizing...");
         try {
           Trello.authorize({
-            interactive:false,
+            type: "popup",
             name: "Shopify Orders",
             expire: "never",
-            success: onAuthorize,
+            scope : {
+              read    : allowRead,
+              write   : allowWrite,
+              account : allowAccount
+            },
+            expiration: never,
+            success: onAuthorize
           })
         } catch(e) {
           console.log(e);

@@ -17,9 +17,6 @@
 
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <!-- Trello API -->
-    <script src="https://api.trello.com/1/client.js?key=dbdd3808d314c362931b7c8918766c03"></script>
-
     <script>
       $("#savedMsg").toggle(false);
 
@@ -203,8 +200,9 @@
     </div>
     </section>
   </main>
+    <!-- Trello API -->
+    <script src="https://api.trello.com/1/client.js?key=dbdd3808d314c362931b7c8918766c03"></script>
     <script type="text/javascript">
-      console.log(Trello.authorized());
       var listsList = ""; // {BoardName : {list object}}
       var rule_count = 0;
 
@@ -224,7 +222,6 @@
           <a class='columns one' href='#'><i class='icon-close'></i></a>\
         </section></li>";
 
-
       var trelloRule = "<li class='extraRule'><section class='columns eleven'style=margin-top:5px;'><span class='column one'>Orders in </span>\
           <select class='listOption columns two' ></select>\
           <span class='column one'>list have</span>\
@@ -233,7 +230,6 @@
           <a href='#' class='column one'><i class='icon-close'></i></a>\
         </section></li>";
 
-      $("#disconnect").click(logout);
 
       var updateLoggedIn = function() {
           var isLoggedIn = Trello.authorized();
@@ -244,19 +240,21 @@
       updateLoggedIn();
 
       // Event handlers
+      $("#disconnect").click(logout);
+
       $("#connectLink").click(function(){
-        console.log("Authorizing...");
         try {
           Trello.authorize({
-            type: "popup",
-            name: "Shopify Orders",
+            type  : "popup",
+            name  : "Shopify Orders",
             scope : {
               read    : 'allowRead',
               write   : 'allowWrite',
               account : 'allowAccount'
             },
             expiration: "never",
-            success: onAuthorize
+            persist : true,
+            success : onAuthorize
           })
         } catch(e) {
           console.log(e);

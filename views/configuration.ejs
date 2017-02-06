@@ -233,15 +233,16 @@
       // Event handlers
       $("#connectLink").click(function(){
         console.log("Authorizing...");
+        try {
           Trello.authorize({
             interactive:false,
             name: "Shopify Orders",
-            scope: {
-              read: "allowRead", write: "allowWrite",
-            },
             expire: "never",
             success: onAuthorize,
           })
+        } catch(e) {
+          console.log(e);
+        }
       });
 
       $("#disconnect").click(logout);

@@ -361,28 +361,24 @@
         });
 
         function setInitialSettings(data) {
-          // Sets the initial config settings based on
+          // Sets the initial config settings based on users saved settings.
           if (data.length === 0 ) {
             return ;
           } else {
-            if (data.recieved !== "null") {
-              console.log(data.recieved);
-              $("#recievedOrders option[id=" + data.recieved + "]").attr("selected", "selected");
+              if (data.recieved !== "null") {
+                  $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
+              };
 
-            };
+              if (data.fulfilled !== "null") {
+                $('#fulfilledOrders option[id=' + data.fulfilled + ']').attr('selected','selected');
+              };
 
-            if (data.fulfilled !== "null") {
-              $("#fulfilledOrders option[id=" + data.fulfilled + "]").attr("selected", "selected");
+              if (data.shopify_rules.length !== 0) {
+                console.log("yes")
+              };
 
-            };
-
-            if (data.shopify_rules.length !== 0) {
-              console.log("yes")
-
-            };
-
-            if (data.trello_rules.length !== 0) {
-              console.log("yes")
+              if (data.trello_rules.length !== 0) {
+                console.log("yes")
 
             }
           }

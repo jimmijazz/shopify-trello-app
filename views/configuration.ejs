@@ -206,6 +206,24 @@
       var listsList = ""; // {BoardName : {list object}}
       var rule_count = 0;
 
+      // Authorize Trello with stored token if it exists
+      try {
+        Trello.authorize({
+          name  : "Shopify Orders",
+          interactive : false
+          scope : {
+            read    : 'allowRead',
+            write   : 'allowWrite',
+            account : 'allowAccount'
+          },
+          expiration: "never",
+          persist : true,
+          success : onAuthorize
+        })
+      } catch(e) {
+        console.log(e);
+      };
+
       var shopifyRule = "<li class='extraRule'><section class='columns eleven' style=margin-top:5px;'> <span class='column one'>Orders with</span>\
           <select class='optionSelect columns two' style='margin-left:0px; margin-right:5px;'>\
             <option>Country</option>\

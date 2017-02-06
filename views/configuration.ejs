@@ -367,8 +367,12 @@
           } else {
             if (data.recieved !== "null") {
               console.log(data.recieved);
+              console.log('#recievedOrders option').length();
+
+
+
               $('#recievedOrders option').filter(function() {
-                return this.id === data.recieved
+                return this.id == data.recieved
               }).prop('selected');
 
               // console.log($("#recievedOrders option[id=" + data.recieved + "]"));

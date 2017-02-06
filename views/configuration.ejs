@@ -204,187 +204,190 @@
   </main>
     <script src="https://api.trello.com/1/client.js?key=dbdd3808d314c362931b7c8918766c03"></script>
     <script type="text/javascript">
-      var listsList = ""; // {BoardName : {list object}}
-      var rule_count = 0;
+      $(document).ready(function() {
+        var listsList = ""; // {BoardName : {list object}}
+        var rule_count = 0;
 
-      var shopifyRule = "<li class='extraRule'><section class='columns eleven' style=margin-top:5px;'> <span class='column one'>Orders with</span>\
-          <select class='optionSelect columns two' style='margin-left:0px; margin-right:5px;'>\
-            <option>Country</option>\
-            <option>Tag</option>\
-            <option>Product Barcode</option>\
-            <option>Product SKU</option>\
-            <option>Product Name</option>\
-          </select>\
-          <input type='text' placeholder='Enter your value' class='columns three' style='margin-right:5px;' />\
-          <span style='margin-right:10px;'>go to list</span>\
-          <select class='listOption columns two' style='margin-left:0px;'>\
-            <option>-</option>\
-          </select>\
-          <a class='columns one' href='#'><i class='icon-close'></i></a>\
-        </section></li>"
-
-
-      var trelloRule = "<li class='extraRule'><section class='columns eleven'style=margin-top:5px;'><span class='column one'>Orders in </span>\
-          <select class='listOption columns two' ></select>\
-          <span class='column one'>list have</span>\
-          <input type='text' class='column two' />\
-          <span class='column two'>tag assigned to them.</span>\
-          <a href='#' class='column one'><i class='icon-close'></i></a>\
-        </section></li>"
-
-      // Event handlers
-      $("#connectLink")
-      .click(function(){
-          Trello.authorize({
-              type: "popup",
-              success: onAuthorize,
-              name: 'Trello Shopify App'
-          })
-      });
-
-      var updateLoggedIn = function() {
-          var isLoggedIn = Trello.authorized();
-          $("#loggedout").toggle(!isLoggedIn);
-          $("#loggedin").toggle(isLoggedIn);
-      };
-
-      updateLoggedIn();
-
-      var logout = function() {
-          Trello.deauthorize();
-          updateLoggedIn();
-          window.location.reload(false);  //Reload the page
-      };
-      $("#disconnect").click(logout);
+        var shopifyRule = "<li class='extraRule'><section class='columns eleven' style=margin-top:5px;'> <span class='column one'>Orders with</span>\
+            <select class='optionSelect columns two' style='margin-left:0px; margin-right:5px;'>\
+              <option>Country</option>\
+              <option>Tag</option>\
+              <option>Product Barcode</option>\
+              <option>Product SKU</option>\
+              <option>Product Name</option>\
+            </select>\
+            <input type='text' placeholder='Enter your value' class='columns three' style='margin-right:5px;' />\
+            <span style='margin-right:10px;'>go to list</span>\
+            <select class='listOption columns two' style='margin-left:0px;'>\
+              <option>-</option>\
+            </select>\
+            <a class='columns one' href='#'><i class='icon-close'></i></a>\
+          </section></li>"
 
 
-      // Trello error message
-      var error = function(errorMsg) {
-        console.log(errorMsg);
-      };
+        var trelloRule = "<li class='extraRule'><section class='columns eleven'style=margin-top:5px;'><span class='column one'>Orders in </span>\
+            <select class='listOption columns two' ></select>\
+            <span class='column one'>list have</span>\
+            <input type='text' class='column two' />\
+            <span class='column two'>tag assigned to them.</span>\
+            <a href='#' class='column one'><i class='icon-close'></i></a>\
+          </section></li>"
 
-      // Make sure Trello user is logged in. Get name, boards and lists.
-      var onAuthorize = function() {
+        // Event handlers
+        $("#connectLink")
+        .click(function(){
+            Trello.authorize({
+                type: "popup",
+                success: onAuthorize,
+                name: 'Trello Shopify App'
+            })
+        });
 
-        // Update logged in message
+        var updateLoggedIn = function() {
+            var isLoggedIn = Trello.authorized();
+            $("#loggedout").toggle(!isLoggedIn);
+            $("#loggedin").toggle(isLoggedIn);
+        };
+
         updateLoggedIn();
 
-        // Send Trello token server to store in the session
-        $.ajax({
-          type: "POST",
-          url: "/trello",
-          data : {"trello_token" : localStorage.getItem(localStorage.key('trello_token'))}
-        });
+        var logout = function() {
+            Trello.deauthorize();
+            updateLoggedIn();
+            window.location.reload(false);  //Reload the page
+        };
+        $("#disconnect").click(logout);
 
-        // Get Trello user's name
-        Trello.members.get("me", function(member){
-          $("#fullName").text(member.fullName);
-        });
 
-        // Get users boards. For each board get the lists within that board
-        Trello.get('/member/me/boards', function(res) {
-          for (board in res) {
-            getLists(res[board]["id"], res[board]['name'], function(item) {
-              listsList += item;
+        // Trello error message
+        var error = function(errorMsg) {
+          console.log(errorMsg);
+        };
+
+        // Make sure Trello user is logged in. Get name, boards and lists.
+        var onAuthorize = function() {
+
+          // Update logged in message
+          updateLoggedIn();
+
+          // Send Trello token server to store in the session
+          $.ajax({
+            type: "POST",
+            url: "/trello",
+            data : {"trello_token" : localStorage.getItem(localStorage.key('trello_token'))}
+          });
+
+          // Get Trello user's name
+          Trello.members.get("me", function(member){
+            $("#fullName").text(member.fullName);
+          });
+
+          // Get users boards. For each board get the lists within that board
+          Trello.get('/member/me/boards', function(res) {
+            for (board in res) {
+              getLists(res[board]["id"], res[board]['name'], function(item) {
+                listsList += item;
+              });
+            };
+          }, error);
+
+          function getLists(boardID, boardName, callback) {
+            Trello.get('/boards/'+boardID+'/lists', function(res) {
+              var listString = "";
+              listString += "<optgroup label='"+boardName+"'>"
+              for (var item in res) {
+                var name = res[item]["name"];
+                var id = res[item]["id"];
+                listString += "<option value="+id+" id=" + id + ">" + name + "</option>"
+              };
+
+              listString += "</optgroup>";
+
+              $('.listOption').append($(listString));
+              callback(listString);
+
             });
           };
-        }, error);
 
-        function getLists(boardID, boardName, callback) {
-          Trello.get('/boards/'+boardID+'/lists', function(res) {
-            var listString = "";
-            listString += "<optgroup label='"+boardName+"'>"
-            for (var item in res) {
-              var name = res[item]["name"];
-              var id = res[item]["id"];
-              listString += "<option value="+id+" id=" + id + ">" + name + "</option>"
-            };
 
-            listString += "</optgroup>";
+        };
 
-            $('.listOption').append($(listString));
-            callback(listString);
+        Trello.authorize({
+            interactive:false,
+            name: "Shopify Orders",
+            scope: {
+              read: "allowRead", write: "allowWrite",
+            },
+            expire: "never",
+            success: onAuthorize,
 
+        });
+
+        // Get customers rules from the database
+        $.ajax({
+          type: "POST",
+          url: "/get_configuration",
+          data : {"shop" : "<%= shop %>" },
+          success : function (data) {
+            setInitialSettings(data);
+          }
+        });
+
+
+        function addExtraShopifyRule() {
+          $("#extraShopifyRules").append($(shopifyRule));
+          var lastRule = $("#extraShopifyRules li:last-child .listOption")
+          $(lastRule).append($(listsList));
+
+          // console.log($("#extraRules li:last-child #listOption"))
+          // $("#extraRules li:last-child #listOption").append(listsList);
+          rule_count ++ ;
+          $("#extraShopifyRules li:last-child").attr("id", rule_count);
+          $("#extraShopifyRules a").click(function() {
+            $(this).parent().remove();
           });
         };
 
+        function addExtraTrelloRule() {
+          $("#extraTrelloRules").append($(trelloRule));
+          var lastRule = $("#extraTrelloRules li:last-child .listOption")
+          $(lastRule).append($(listsList));
 
-      };
+          // console.log($("#extraRules li:last-child #listOption"))
+          // $("#extraRules li:last-child #listOption").append(listsList);
+          rule_count ++ ;
+          $("#extraTrelloRules li:last-child").attr("id", rule_count);
+          $("#extraTrelloRules a").click(function() {
+            $(this).parent().remove();
+          });
+        };
 
-      Trello.authorize({
-          interactive:false,
-          name: "Shopify Orders",
-          scope: {
-            read: "allowRead", write: "allowWrite",
-          },
-          expire: "never",
-          success: onAuthorize,
+        function setInitialSettings(data) {
+          // Sets the initial config settings based on users saved settings.
+          if (data.length === 0 ) {
+            return ;
+          } else {
+              $("recievedOrders").css("border", "none");
+              if (data.recieved !== "null") {
+                console.log(data.recieved);
+                console.log($('#recievedOrders option[id='+data.recieved+']');
+                $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
+              };
 
-      });
+              if (data.fulfilled !== "null") {
+                $('#fulfilledOrders option[id=' + data.fulfilled + ']').attr('selected','selected');
+              };
 
-      // Get customers rules from the database
-      $.ajax({
-        type: "POST",
-        url: "/get_configuration",
-        data : {"shop" : "<%= shop %>" },
-        success : function (data) {
-          setInitialSettings(data);
-        }
-      });
+              if (data.shopify_rules.length !== 0) {
+                console.log("yes")
+              };
 
-      function setInitialSettings(data) {
-        // Sets the initial config settings based on users saved settings.
-        if (data.length === 0 ) {
-          return ;
-        } else {
-            if (data.recieved !== "null") {
-              console.log(data.recieved);
-              console.log($('#recievedOrders option[id='+data.recieved+']').val());
-              $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
-            };
-
-            if (data.fulfilled !== "null") {
-              $('#fulfilledOrders option[id=' + data.fulfilled + ']').attr('selected','selected');
-            };
-
-            if (data.shopify_rules.length !== 0) {
-              console.log("yes")
-            };
-
-            if (data.trello_rules.length !== 0) {
-              console.log("yes")
+              if (data.trello_rules.length !== 0) {
+                console.log("yes")
+            }
           }
-        }
-      };
-
-      function addExtraShopifyRule() {
-        $("#extraShopifyRules").append($(shopifyRule));
-        var lastRule = $("#extraShopifyRules li:last-child .listOption")
-        $(lastRule).append($(listsList));
-
-        // console.log($("#extraRules li:last-child #listOption"))
-        // $("#extraRules li:last-child #listOption").append(listsList);
-        rule_count ++ ;
-        $("#extraShopifyRules li:last-child").attr("id", rule_count);
-        $("#extraShopifyRules a").click(function() {
-          $(this).parent().remove();
-        });
-      };
-
-      function addExtraTrelloRule() {
-        $("#extraTrelloRules").append($(trelloRule));
-        var lastRule = $("#extraTrelloRules li:last-child .listOption")
-        $(lastRule).append($(listsList));
-
-        // console.log($("#extraRules li:last-child #listOption"))
-        // $("#extraRules li:last-child #listOption").append(listsList);
-        rule_count ++ ;
-        $("#extraTrelloRules li:last-child").attr("id", rule_count);
-        $("#extraTrelloRules a").click(function() {
-          $(this).parent().remove();
-        });
-      };
-
+        };
+      });
     </script>
     <footer>
     </footer>

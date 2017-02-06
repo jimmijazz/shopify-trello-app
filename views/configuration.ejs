@@ -376,9 +376,10 @@
               // })
 
               $('#recievedOrders optgroup').each(function() {
-                $('this option').filter() {
+                $('this option').filter(function() {
                   return this.id == data.recieved
-                }
+
+                })
               }).prop('selected');
 
               // console.log($("#recievedOrders option[id=" + data.recieved + "]"));

@@ -242,9 +242,9 @@
             name: "Shopify Orders",
             expire: "never",
             scope : {
-              read    : allowRead,
-              write   : allowWrite,
-              account : allowAccount
+              read    : 'allowRead',
+              write   : 'allowWrite',
+              account : 'allowAccount'
             },
             expiration: never,
             success: onAuthorize

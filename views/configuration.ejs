@@ -368,7 +368,7 @@
             if (data.recieved !== "null") {
               console.log(data.recieved);
 
-              // $('#recievedOrders optgroup[]').each(function() {
+              // $('#recievedOrders optgroup').each(function() {
               //   console.log($(this).attr('id'));
               //   if($(this).attr('id') === data.recieved) {
               //     $(this).attr('selected',true);
@@ -376,9 +376,8 @@
               // })
 
               $('#recievedOrders optgroup').each(function() {
-                $('this option').filter(function() {
+                $(this).filter(function() {
                   return this.id == data.recieved
-
                 })
               }).prop('selected');
 

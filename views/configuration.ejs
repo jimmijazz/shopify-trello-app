@@ -376,10 +376,10 @@
               // })
 
               $('#recievedOrders optgroup').each(function() {
-                console.log($(this));
-                $(this).each(function() {
-                  console.log($(this));
-                  $(this).filter(function() {
+                console.log(this);
+                this.each(function() {
+                  console.log(this);
+                  this.filter(function() {
                     return this.id == data.recieved
                   })
                 })

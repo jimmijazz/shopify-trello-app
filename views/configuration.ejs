@@ -204,7 +204,7 @@
     </section>
   </main>
     <script type="text/javascript">
-
+      console.log(Trello.authorized());
       var listsList = ""; // {BoardName : {list object}}
       var rule_count = 0;
 
@@ -311,12 +311,9 @@
               var id = res[item]["id"];
               listString += "<option value="+id+" id=" + id + ">" + name + "</option>"
             };
-
             listString += "</optgroup>";
-
             $('.listOption').append($(listString));
             callback(listString);
-
           });
         };
       };

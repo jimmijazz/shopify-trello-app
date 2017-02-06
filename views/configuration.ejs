@@ -206,17 +206,6 @@
       var listsList = ""; // {BoardName : {list object}}
       var rule_count = 0;
 
-      // Authorize Trello with stored token if it exists
-      Trello.authorize({
-        name  : "Shopify Orders",
-        interactive : false,
-        success : onAuthorize,
-        error: function(err) {
-          console.log(err);
-        }
-      });
-
-
       var shopifyRule = "<li class='extraRule'><section class='columns eleven' style=margin-top:5px;'> <span class='column one'>Orders with</span>\
           <select class='optionSelect columns two' style='margin-left:0px; margin-right:5px;'>\
             <option>Country</option>\
@@ -241,6 +230,15 @@
           <a href='#' class='column one'><i class='icon-close'></i></a>\
         </section></li>";
 
+      // Authorize Trello with stored token if it exists
+      Trello.authorize({
+        name  : "Shopify Orders",
+        interactive : false,
+        success : onAuthorize,
+        error: function(err) {
+          console.log(err);
+        }
+      });
 
       var updateLoggedIn = function() {
           var isLoggedIn = Trello.authorized();

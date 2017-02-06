@@ -230,51 +230,13 @@
           <a href='#' class='column one'><i class='icon-close'></i></a>\
         </section></li>";
 
-      // // Authorize Trello with stored token if it exists
-      // Trello.authorize({
-      //   name  : "Shopify Orders",
-      //   interactive : false,
-      //   success : onAuthorize,
-      //   error: function(err) {
-      //     console.log(err);
-      //   }
-      // });
-
-      var updateLoggedIn = function() {
-          var isLoggedIn = Trello.authorized();
-          $("#loggedout").toggle(!isLoggedIn);
-          $("#loggedin").toggle(isLoggedIn);
-      };
-
-      updateLoggedIn();
-
-      // Event handlers
-      $("#disconnect").click(logout);
-
-      $("#connectLink").click(function() {
-        try {
-          Trello.authorize({
-            type  : "popup",
-            name  : "Shopify Orders",
-            scope : {
-              read    : 'allowRead',
-              write   : 'allowWrite',
-              account : 'allowAccount'
-            },
-            expiration: "never",
-            persist : true,
-            success : onAuthorize
-          })
-        } catch(e) {
-          console.log(e);
-        }
-      });
-
       var logout = function() {
           Trello.deauthorize();
           updateLoggedIn();
           window.location.reload(false);  //Reload the page
       };
+
+      $("#disconnect").click(logout);
 
       // Trello error message
       var error = function(errorMsg) {
@@ -352,6 +314,48 @@
           $(this).parent().remove();
         });
       };
+
+      var updateLoggedIn = function() {
+          var isLoggedIn = Trello.authorized();
+          $("#loggedout").toggle(!isLoggedIn);
+          $("#loggedin").toggle(isLoggedIn);
+      };
+      try {
+        Trello.authorize({
+          type  : "popup",
+          name  : "Shopify Orders",
+          scope : {
+            read    : 'allowRead',
+            write   : 'allowWrite',
+            account : 'allowAccount'
+          },
+          expiration: "never",
+          persist : true,
+          success : onAuthorize
+        })
+      } catch(e) {
+        console.log(e);
+      };
+
+      // Event handlers
+      $("#connectLink").click(function() {
+        try {
+          Trello.authorize({
+            type  : "popup",
+            name  : "Shopify Orders",
+            scope : {
+              read    : 'allowRead',
+              write   : 'allowWrite',
+              account : 'allowAccount'
+            },
+            expiration: "never",
+            persist : true,
+            success : onAuthorize
+          })
+        } catch(e) {
+          console.log(e);
+        }
+      });
 
       // Get customers rules from the database
       function setConfiguration() {

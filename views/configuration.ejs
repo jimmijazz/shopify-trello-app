@@ -194,11 +194,6 @@
     </div>
 
     <br />
-    <section>
-    <div class="columns twelve">
-      <!-- <button id="save" style="position:absolute;bottom:0;right:50;margin-bottom:10px;margin-top:20px;" onclick="submitForm()" value="Save">Save</button> -->
-    </div>
-    </section>
   </main>
     <!-- Trello API -->
     <script src="https://api.trello.com/1/client.js?key=dbdd3808d314c362931b7c8918766c03"></script>
@@ -236,7 +231,7 @@
           window.location.reload(false);  //Reload the page
       };
 
-      $("#disconnect").click(logout);
+      $("#disconnect").click(logout);  // Logout from Trello
 
       // Trello error message
       var error = function(errorMsg) {
@@ -244,6 +239,7 @@
       };
 
       // Make sure Trello user is logged in. Get name, boards and lists.
+      // Called when the page is loaded and when the user logs in.
       var onAuthorize = function() {
 
         // Update logged in message
@@ -292,9 +288,8 @@
         var lastRule = $("#extraShopifyRules li:last-child .listOption")
         $(lastRule).append($(listsList));
 
-        // console.log($("#extraRules li:last-child #listOption"))
-        // $("#extraRules li:last-child #listOption").append(listsList);
         rule_count ++ ;
+
         $("#extraShopifyRules li:last-child").attr("id", rule_count);
         $("#extraShopifyRules a").click(function() {
           $(this).parent().remove();
@@ -306,8 +301,6 @@
         var lastRule = $("#extraTrelloRules li:last-child .listOption")
         $(lastRule).append($(listsList));
 
-        // console.log($("#extraRules li:last-child #listOption"))
-        // $("#extraRules li:last-child #listOption").append(listsList);
         rule_count ++ ;
         $("#extraTrelloRules li:last-child").attr("id", rule_count);
         $("#extraTrelloRules a").click(function() {
@@ -320,6 +313,7 @@
           $("#loggedout").toggle(!isLoggedIn);
           $("#loggedin").toggle(isLoggedIn);
       };
+
       try {
         Trello.authorize({
           type  : "popup",
@@ -337,7 +331,7 @@
         console.log(e);
       };
 
-      // Event handlers
+      // Trello log in event handler
       $("#connectLink").click(function() {
         try {
           Trello.authorize({
@@ -371,7 +365,7 @@
         function setInitialSettings(data) {
           // Sets the initial config settings based on users saved settings.
           if (data.length === 0 ) {
-            return ;
+            return ;  // No rules currently set
           } else {
               if (data.recieved !== "null") {
                 $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
@@ -382,7 +376,13 @@
               };
 
               if (data.shopify_rules.length !== 0) {
-                console.log("yes")
+                data.shopify_rules.each(function(rule) {
+                  console.log(rule);
+                  console.log(rule.id);
+                  console.log(rule.country);
+                  console.log(rule.input);
+                  console.log(rule.list);
+                };
               };
 
               if (data.trello_rules.length !== 0) {

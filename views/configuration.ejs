@@ -77,7 +77,6 @@
                   newRule.country = ($(this).find(".optionSelect").val()); // country/tag
                   newRule.input = ($(this).find("input").val()); //input
                   newRule.list = ($(this).find(".listOption").find(":selected").attr('id'));
-                  newRule.listName = ($(this).find(".listOption").find(":selected").text());
 
                   rulesData["shopify_rules"].push(newRule);
                 });
@@ -89,7 +88,6 @@
                   newRule.id = (this.id);
                   newRule.list = $(this).find(".listOption").find(":selected").attr('id');
                   newRule.input = $(this).find("input").val();
-                  newRule.listName = $(this).find(".listOption").find(":selected").text()
                   rulesData["trello_rules"].push(newRule);
                 });
 
@@ -384,19 +382,19 @@
                   console.log(rule.country);
                   console.log(rule.input);
                   console.log(rule.list);
-                  console.log(rule.listName);
-                  addExtraShopifyRule();
-                  $("#extraShopifyRules li:last-child .optionSelect").val(rule.country);
-                  $("#extraShopifyRules li:last-child input").val(rule.input);
-                  $("#extraShopifyRules li:last-child .listOption option[id=" + rule.list + "]").attr('selected', 'selected');
-
-
-
+                  addExtraShopifyRule();  // Add extra rule to rules div
+                  $("#extraShopifyRules li:last-child .optionSelect").val(rule.country);  // Set country/tag/barcode etc dropdown
+                  $("#extraShopifyRules li:last-child input").val(rule.input);  // Set input value
+                  $("#extraShopifyRules li:last-child .listOption option[id=" + rule.list + "]").attr('selected', 'selected');  // set board value
                 })
               };
 
               if (data.trello_rules.length !== 0) {
-                console.log("yes")
+                data.trello_rules.forEach(function(rule) {
+                  addExtraTrelloRule();
+                  $("#extraTrelloRules li:last-child .listOption option[id=" + rule.list + "]").attr('selected', 'selected');
+                  $("#extraTrelloRules li:list-child input").val(rule.input);
+                });
             }
           }
         };

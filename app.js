@@ -317,7 +317,6 @@ app.post('/configuration', function(req, res) {
           "country" : req.body["shopify_rules[" + shopifyIndex + "][country]"],
           "input"   : req.body["shopify_rules[" + shopifyIndex + "][input]"],
           "list"    : req.body["shopify_rules[" + shopifyIndex + "][list]"],
-          "listName": req.body["shopify_rules[" + shopifyIndex + "][listName]"]
         });
         shopifyIndex ++;  // Increment unique ID for each rule
 
@@ -327,7 +326,6 @@ app.post('/configuration', function(req, res) {
           "id"      : trelloIndex,
           "list"    : req.body["trello_rules[" + trelloIndex + "][list]"],
           "input"   : req.body["trello_rules[" + trelloIndex + "][input]"],
-          "listName": req.body["trello_rules[" + trelloIndex + "][listName]"]
         });
         trelloIndex ++;
       }

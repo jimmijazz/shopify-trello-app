@@ -377,14 +377,22 @@
 
               if (data.shopify_rules.length !== 0) {
                 console.log(data.shopify_rules.length);
-                for (n = 0; n != data.shopify_rules.length; n++){
-                  console.log(n);
-                  console.log(data.shopify_rules[n]["id"]);
-                  console.log(data.shopify_rules[n]["country"]);
-                  console.log(data.shopify_rules[n]["input"]);
-                  console.log(data.shopify_rules[n]["list"]);
+                $(data.shopify_rules).each(function(rule) {
+                  corulesole.log(n);
+                  console.log(rule["id"]);
+                  console.log(rule["country"]);
+                  console.log(rule["input"]);
+                  console.log(rule["list"]);
                   addExtraShopifyRule();
-                };
+                })
+                // {
+                //   console.log(n);
+                //   console.log(data.shopify_rules[n]["id"]);
+                //   console.log(data.shopify_rules[n]["country"]);
+                //   console.log(data.shopify_rules[n]["input"]);
+                //   console.log(data.shopify_rules[n]["list"]);
+                //   addExtraShopifyRule();
+                // };
               };
 
               if (data.trello_rules.length !== 0) {

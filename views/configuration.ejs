@@ -376,12 +376,13 @@
               };
 
               if (data.shopify_rules.length !== 0) {
-                for (var n = 0; n < data.shopify_rules.length; n++){
+                console.log(data.shopify_rules.length);
+                for (n = 0; n < data.shopify_rules.length; n++){
                   console.log(n);
-                  console.log(data.shopify_rules[n].id);
+                  console.log(data.shopify_rules[n]["id"]);
                   console.log(data.shopify_rules[n]["country"]);
-                  console.log(n.input);
-                  console.log(n.list);
+                  console.log(data.shopify_rules[n]["input"]);
+                  console.log(data.shopify_rules[n]["list"]);
                 };
               };
 

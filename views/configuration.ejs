@@ -393,7 +393,7 @@
                 data.trello_rules.forEach(function(rule) {
                   addExtraTrelloRule();
                   $("#extraTrelloRules li:last-child .listOption option[id=" + rule.list + "]").attr('selected', 'selected');
-                  $("#extraTrelloRules li:list-child input").val(rule.input);
+                  $("#extraTrelloRules li:last-child input").val(rule.input);
                 });
             }
           }

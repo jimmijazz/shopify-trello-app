@@ -377,7 +377,7 @@
               };
 
               if (data.shopify_rules.length !== 0) {
-                $(data.shopify_rules).each(function(rule) {
+                data.shopify_rules.forEach(function(rule) {
                   console.log(rule);
                   console.log(rule.id);
                   console.log(rule["country"]);

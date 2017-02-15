@@ -98,7 +98,6 @@
                   data: rulesData,
                   statusCode: {
                     200 : function() {
-                      console.log("Settings saved");
                       saveMessage("Success. Your settings were saved.");
                     },
                     500 : function () {
@@ -369,8 +368,6 @@
             return ;  // No rules currently set
           } else {
               if (data.recieved !== "null") {
-                console.log(data.recieved);
-                $('#recievedOrders option[id=' + data.recieved +']');
                 $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
               };
 

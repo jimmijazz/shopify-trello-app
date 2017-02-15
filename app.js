@@ -313,7 +313,7 @@ app.post('/configuration', function(req, res) {
       // Shopify Rule
       if (String(item).includes("country") && String(item).includes("shopify_rules")) {
         newShopifyRules.push({
-          "id"      : shopifyIndex,
+          "_id"      : shopifyIndex,
           "country" : req.body["shopify_rules[" + shopifyIndex + "][country]"],
           "input"   : req.body["shopify_rules[" + shopifyIndex + "][input]"],
           "list"    : req.body["shopify_rules[" + shopifyIndex + "][list]"],
@@ -323,7 +323,7 @@ app.post('/configuration', function(req, res) {
       // Trello Rule
     } else if (String(item).includes("list") && String(item).includes("trello_rules")) {
         newTrelloRules.push({
-          "id"      : trelloIndex,
+          "_id"      : trelloIndex,
           "list"    : req.body["trello_rules[" + trelloIndex + "][list]"],
           "input"   : req.body["trello_rules[" + trelloIndex + "][input]"],
         });

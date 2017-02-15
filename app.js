@@ -321,7 +321,7 @@ app.post('/configuration', function(req, res) {
         shopifyIndex ++;  // Increment unique ID for each rule
 
       // Trello Rule
-      } else if  String(item).includes("trello_rules")) {
+    } else if (String(item).includes("trello_rules")) {
         newTrelloRules.push({
           // "id"      : trelloIndex,
           "list"    : req.body["trello_rules[" + trelloIndex + "][list]"],

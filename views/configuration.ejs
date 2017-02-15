@@ -287,7 +287,7 @@
       function addExtraShopifyRule() {
         $("#extraShopifyRules").append($(shopifyRule));
         var lastRule = $("#extraShopifyRules li:last-child .listOption")
-        $(lastRule).append($(listsList));
+        $(lastRule).append($(listsList)); // Set to list of Trello Boards
 
         rule_count ++ ;
 
@@ -378,12 +378,14 @@
 
               if (data.shopify_rules.length !== 0) {
                 data.shopify_rules.forEach(function(rule) {
-                  console.log(rule);
                   console.log(rule.id);
-                  console.log(rule["country"]);
-                  console.log(rule["input"]);
-                  console.log(rule["list"]);
+                  console.log(rule.country);
+                  console.log(rule.input);
+                  console.log(rule.list);
                   addExtraShopifyRule();
+                  $("#extraShopifyRules li:last-child .optionSelect").val(rule.country);
+
+
                 })
               };
 

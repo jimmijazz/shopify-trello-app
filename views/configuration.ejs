@@ -77,6 +77,7 @@
                   newRule.country = ($(this).find(".optionSelect").val()); // country/tag
                   newRule.input = ($(this).find("input").val()); //input
                   newRule.list = ($(this).find(".listOption").find(":selected").attr('id'));
+                  newRule.listName = ($(this).find(".listOption").find(":selected").val());
 
                   rulesData["shopify_rules"].push(newRule);
                 });
@@ -384,6 +385,9 @@
                   console.log(rule.list);
                   addExtraShopifyRule();
                   $("#extraShopifyRules li:last-child .optionSelect").val(rule.country);
+                  $("#extraShopifyRules li:last-child .columns three").val(rule.input);
+                  $("#extraShopifyRules li:last-child .listOption").val(rule.listName);
+
 
 
                 })

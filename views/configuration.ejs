@@ -388,7 +388,7 @@
                   addExtraShopifyRule();
                   $("#extraShopifyRules li:last-child .optionSelect").val(rule.country);
                   $("#extraShopifyRules li:last-child input").val(rule.input);
-                  $("#extraShopifyRules li:last-child .listOption").val(rule.listName);
+                  $("#extraShopifyRules li:last-child .listOption option[id=" + rule.list + "]").attr('selected', 'selected');
 
 
 

@@ -353,6 +353,7 @@
 
       // Get customers rules from the database
       function setConfiguration() {
+        console.log('set configuration');
         $.ajax({
           type: "POST",
           url: "/get_configuration",
@@ -368,7 +369,6 @@
             return ;  // No rules currently set
           } else {
               if (data.recieved !== "null") {
-                console.log("recieved");
                 $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
               };
 

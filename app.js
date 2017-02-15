@@ -120,33 +120,33 @@ app.post('/trello', function(req, res) {
 app.get('/', function(req, res) {
     if (req.session.access_token) {
 
-      // Create webhooks
-      const webhook_data = {
-        "webhook": {
-          "topic": "orders/create",
-          "address": config.app_url + "/orders",
-          "format": "json"
-        },
-        "webhook": {
-          "topic": "orders/updated",
-          "address": config.app_url + "orders_updated",
-          "format": "json"
-        }
-      };
-
-      request({
-        method: 'POST',
-        url : "https://" + req.session.shop + "/admin/webhooks.json",
-        headers: { "X-Shopify-Access-Token": req.session.access_token},
-        json : webhook_data
-      }, function(err, response, body) {
-          if (err) {
-            console.log(err);
-            console.log("Post response:", body)
-          } else {
-          console.log('Post response:', body)
-        };
-      });
+      // // Create webhooks
+      // const webhook_data = {
+      //   "webhook": {
+      //     "topic": "orders/create",
+      //     "address": config.app_url + "/orders",
+      //     "format": "json"
+      //   },
+      //   "webhook": {
+      //     "topic": "orders/updated",
+      //     "address": config.app_url + "orders_updated",
+      //     "format": "json"
+      //   }
+      // };
+      //
+      // request({
+      //   method: 'POST',
+      //   url : "https://" + req.session.shop + "/admin/webhooks.json",
+      //   headers: { "X-Shopify-Access-Token": req.session.access_token},
+      //   json : webhook_data
+      // }, function(err, response, body) {
+      //     if (err) {
+      //       console.log(err);
+      //       console.log("Post response:", body)
+      //     } else {
+      //     console.log('Post response:', body)
+      //   };
+      // });
 
         res.render('configuration', {
             title: 'Configuration',

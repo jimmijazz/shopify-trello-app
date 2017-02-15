@@ -376,13 +376,13 @@
               };
 
               if (data.shopify_rules.length !== 0) {
-                data.shopify_rules.each(function(rule) {
-                  console.log(rule);
-                  console.log(rule.id);
-                  console.log(rule.country);
-                  console.log(rule.input);
-                  console.log(rule.list);
-                });
+                for (var n = 0; i < data.shopify_rules.length; i++){
+                  console.log(n);
+                  console.log(n.id);
+                  console.log(n.country);
+                  console.log(n.input);
+                  console.log(n.list);
+                };
               };
 
               if (data.trello_rules.length !== 0) {

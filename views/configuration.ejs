@@ -76,7 +76,7 @@
                   newRule.id = (this.id);  //id
                   newRule.country = ($(this).find(".optionSelect").val()); // country/tag
                   newRule.input = ($(this).find("input").val()); //input
-                  newRule.list = ($(this).find(".listOption").attr('id'));
+                  newRule.list = ($(this).find(".listOption").find(":selected").attr('id'));
 
                   rulesData["shopify_rules"].push(newRule);
                 });

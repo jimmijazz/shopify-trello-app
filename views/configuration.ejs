@@ -87,8 +87,9 @@
                 $.each(trelloRules, function() {
                   var newRule = {};
                   newRule.id = (this.id);
-                  newRule.list = $(this).find(".listOption").attr('id');
+                  newRule.list = $(this).find(".listOption").find(":selected").attr('id');
                   newRule.input = $(this).find("input").val();
+                  newRule.listName = $(this).find(".listOption").find(":selected").val()
                   rulesData["trello_rules"].push(newRule);
                 });
 
@@ -383,9 +384,10 @@
                   console.log(rule.country);
                   console.log(rule.input);
                   console.log(rule.list);
+                  cosole.log()
                   addExtraShopifyRule();
                   $("#extraShopifyRules li:last-child .optionSelect").val(rule.country);
-                  $("#extraShopifyRules li:last-child .columns three").val(rule.input);
+                  $("#extraShopifyRules li:last-child input").val(rule.input);
                   $("#extraShopifyRules li:last-child .listOption").val(rule.listName);
 
 

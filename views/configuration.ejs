@@ -369,6 +369,8 @@
             return ;  // No rules currently set
           } else {
               if (data.recieved !== "null") {
+                console.log(data.recieved);
+                $('#recievedOrders option[id=' + data.recieved +']');
                 $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
               };
 

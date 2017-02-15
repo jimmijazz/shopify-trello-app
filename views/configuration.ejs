@@ -263,8 +263,9 @@
             getLists(res[board]["id"], res[board]['name'], function(item) {
               listsList += item;
             });
-            setConfiguration();
           };
+          setConfiguration();
+
         }, error);
 
         function getLists(boardID, boardName, callback) {
@@ -353,7 +354,6 @@
 
       // Get customers rules from the database
       function setConfiguration() {
-        console.log('set configuration');
         $.ajax({
           type: "POST",
           url: "/get_configuration",

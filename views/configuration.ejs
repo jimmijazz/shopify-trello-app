@@ -263,9 +263,9 @@
               listsList += item;
             });
           };
-          setConfiguration();
-
-        }, error);
+        }, function(err) {
+          console.log(err);
+        });
 
         function getLists(boardID, boardName, callback) {
           Trello.get('/boards/'+boardID+'/lists', function(res) {
@@ -282,6 +282,8 @@
           });
         };
       };
+
+      setConfiguration();
 
       function addExtraShopifyRule() {
         $("#extraShopifyRules").append($(shopifyRule));

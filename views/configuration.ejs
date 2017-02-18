@@ -372,7 +372,7 @@
               if (data.recieved !== "null") {
                 console.log($('#recievedOrders'));
                 console.log(data.recieved);
-                $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
+                $('#recievedOrders option[id=' + String(data.recieved) + ']').attr('selected','selected');
               } else {
                 console.log("no data recieved");
               }

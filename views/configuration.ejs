@@ -157,7 +157,7 @@
     <div id="rules">
       <!-- Main Rules -->
       <section class="columns twelve">
-        <h3>Main Rules Trello</h3>
+        <h3>Main Rules</h3>
       </section>
       <div class="columns eleven">
         <span class="columns three" style="text-align:left;">All recieved orders go to list: </span>
@@ -368,6 +368,7 @@
             return ;  // No rules currently set
           } else {
               if (data.recieved !== "null") {
+                console.log(data.recieved);
                 $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
               };
 

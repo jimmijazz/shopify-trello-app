@@ -354,7 +354,7 @@
       });
 
       // Get customers rules from the database
-      function setConfiguration() {
+      var setConfiguration = function() {
         $.ajax({
           type: "POST",
           url: "/get_configuration",
@@ -364,7 +364,7 @@
           }
         });
 
-        function setInitialSettings(data) {
+        var setInitialSettings = function(data) {
           // Sets the initial config settings based on users saved settings.
           if (data.length === 0 ) {
             return ;  // No rules currently set

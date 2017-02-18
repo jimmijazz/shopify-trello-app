@@ -365,13 +365,14 @@
         });
 
         var setInitialSettings = function(data) {
+          console.log($("#recievedOrders option")); // Check the options have loaded
+          console.log(data);
           // Sets the initial config settings based on users saved settings.
           if (data.length === 0 ) {
             return ;  // No rules currently set
           } else {
               if (data.recieved !== "null") {
                 // $('#recievedOrders option[id=' + data.recieved + ']').prop('selected',true);
-
                 $('#recievedOrders option').filter(function() {
                   return this.id === String(data.recieved)
                 }).prop('selected', true);

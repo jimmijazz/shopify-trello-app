@@ -386,7 +386,7 @@
                   addExtraShopifyRule();  // Add extra rule to rules div
                   $("#extraShopifyRules li:last-child .optionSelect").val(rule.country);  // Set country/tag/barcode etc dropdown
                   $("#extraShopifyRules li:last-child input").val(rule.input);  // Set input value
-                  $("#extraShopifyRules li:last-child .listoption").val(rule.list);  // set board value
+                  $("#extraShopifyRules li:last-child .listOption option[id=" + rule.list + "]").attr('selected', 'selected');
                 })
               };
 

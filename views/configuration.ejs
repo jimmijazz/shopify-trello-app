@@ -378,6 +378,8 @@
               };
 
               if (data.fulfilled !== "null") {
+                console.log(data.fulfilled);
+                console.log($("#fulfilledOrders option"));
                 $('#fulfilledOrders option[id=' + data.fulfilled + ']').attr('selected','selected');
               };
 

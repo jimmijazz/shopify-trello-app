@@ -370,11 +370,8 @@
             return ;  // No rules currently set
           } else {
               if (data.recieved !== "null") {
-                console.log($('#recievedOrders'));
-                console.log(data.recieved);
-                $('#recievedOrders option[id=' + String(data.recieved) + ']').attr('selected','selected');
+                $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
               } else {
-                console.log("no data recieved");
               }
 
               if (data.fulfilled !== "null") {
@@ -384,9 +381,10 @@
               if (data.shopify_rules.length !== 0) {
                 data.shopify_rules.forEach(function(rule) {
                   addExtraShopifyRule();  // Add extra rule to rules div
+                  console.log(rule.list);
                   $("#extraShopifyRules li:last-child .optionSelect").val(rule.country);  // Set country/tag/barcode etc dropdown
                   $("#extraShopifyRules li:last-child input").val(rule.input);  // Set input value
-                  $("#extraShopifyRules li:last-child .listOption option[id=" + rule.list + "]").attr('selected', 'selected');  // set board value
+                  $("#extraShopifyRules li:last-child .listOption option[id='" + rule.list + "]").attr('selected', 'selected');  // set board value
                 })
               };
 

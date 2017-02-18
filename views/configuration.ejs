@@ -370,7 +370,9 @@
               if (data.recieved !== "null") {
                 console.log(data.recieved);
                 $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
-              };
+              } else {
+                console.log("no data recieved");
+              }
 
               if (data.fulfilled !== "null") {
                 $('#fulfilledOrders option[id=' + data.fulfilled + ']').attr('selected','selected');

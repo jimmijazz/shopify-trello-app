@@ -370,8 +370,10 @@
             return ;  // No rules currently set
           } else {
               if (data.recieved !== "null") {
-                $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
-                console.log($('#recievedOrders option[id=' + data.recieved + ']'));
+                // $('#recievedOrders option[id=' + data.recieved + ']').prop('selected',true);
+                $('#recievedOrders option').filter(function() {
+                  return this.id === data.recieved
+                }).prop('selected', true);
               };
 
               if (data.fulfilled !== "null") {

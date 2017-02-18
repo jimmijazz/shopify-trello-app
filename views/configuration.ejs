@@ -263,6 +263,7 @@
               listsList += item;
             });
           };
+          setConfiguration();
         }, function(err) {
           console.log(err);
         });
@@ -281,7 +282,6 @@
             callback(listString);
           });
         };
-        setConfiguration();
       };
 
 

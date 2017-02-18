@@ -263,6 +263,8 @@
               listsList += item;
             });
           };
+          setConfiguration();
+
         }, function(err) {
           console.log(err);
         });
@@ -283,7 +285,6 @@
         };
       };
 
-      setConfiguration();
 
       function addExtraShopifyRule() {
         $("#extraShopifyRules").append($(shopifyRule));
@@ -381,11 +382,9 @@
               if (data.shopify_rules.length !== 0) {
                 data.shopify_rules.forEach(function(rule) {
                   addExtraShopifyRule();  // Add extra rule to rules div
-                  console.log(rule);
-                  console.log(rule["list"]);
                   $("#extraShopifyRules li:last-child .optionSelect").val(rule.country);  // Set country/tag/barcode etc dropdown
                   $("#extraShopifyRules li:last-child input").val(rule.input);  // Set input value
-                  $("#extraShopifyRules li:last-child .listOption option[id='" + rule["list"] + "']").attr("selected", "selected");  // set board value
+                  $("#extraShopifyRules li:last-child .listOption option[id='" + rule.list + "']").attr("selected", "selected");  // set board value
                 })
               };
 

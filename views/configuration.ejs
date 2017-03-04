@@ -269,6 +269,7 @@
 
         function getLists(boardID, boardName, callback) {
           Trello.get('/boards/'+boardID+'/lists', function(res) {
+            console.log(res);
             var listString = "";
             listString += "<optgroup label='"+boardName+"'>"
             for (var item in res) {
@@ -364,7 +365,6 @@
         });
 
         var setInitialSettings = function(data) {
-          console.log($("#recievedOrders")); // Check the options have loaded
           console.log(data);
           // Sets the initial config settings based on users saved settings.
           if (data.length === 0 ) {

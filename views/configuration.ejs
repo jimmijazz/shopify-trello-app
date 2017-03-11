@@ -267,8 +267,9 @@
             setInitialSettings(data);
           }
         });
-
+        console.log(listsList);
         var setInitialSettings = function(data) {
+          console.log(data)
           // Sets the initial config settings based on users saved settings.
           if (data.length === 0 ) {
             return ;  // No rules currently set

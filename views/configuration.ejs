@@ -194,13 +194,12 @@
 
     <br />
   </main>
-    <!-- Trello API -->
-    <script src="https://api.trello.com/1/client.js?key=dbdd3808d314c362931b7c8918766c03"></script>
+    <script src="https://api.trello.com/1/client.js?key=dbdd3808d314c362931b7c8918766c03"></script>    <!-- Trello API -->
+
     <script type="text/javascript">
-
       var listsList = ""; // {BoardName : {list object}}
-      // var rule_count = 0;
 
+      // HTML for new Shopify rule
       var shopifyRule = "<li class='extraRule'><section class='columns eleven' style=margin-top:5px;'> <span class='column one'>Orders with</span>\
           <select class='optionSelect columns two' style='margin-left:0px; margin-right:5px;'>\
             <option>Country</option>\
@@ -216,7 +215,7 @@
           </select>\
           <a class='columns one' href='#'><i class='icon-close'></i></a>\
         </section></li>";
-
+      // HTML for new Trello rule
       var trelloRule = "<li class='extraRule'><section class='columns eleven'style=margin-top:5px;'><span class='column one'>Orders in </span>\
           <select class='listOption columns two' ></select>\
           <span class='column one'>list have</span>\
@@ -232,6 +231,26 @@
       };
 
       $("#disconnect").click(logout);  // Logout from Trello
+
+      // Log in to Trello
+      $("#connectLink").click(function() {
+        try {
+          Trello.authorize({
+            type  : "popup",
+            name  : "Shopify Orders",
+            scope : {
+              read    : 'allowRead',
+              write   : 'allowWrite',
+              account : 'allowAccount'
+            },
+            expiration: "never",
+            persist : true,
+            success : onAuthorize
+          })
+        } catch(e) {
+          console.log(e);
+        }
+      });
 
       // Trello error message
       var error = function(errorMsg) {
@@ -291,10 +310,6 @@
       // Make sure Trello user is logged in. Get name, boards and lists.
       // Called when the page is loaded and when the user logs in.
       var onAuthorize = function() {
-
-        updateLoggedIn(); // Update logged in message
-
-
         // Send Trello token server to store in the session
         $.ajax({
           type: "POST",
@@ -302,11 +317,19 @@
           data : {"trello_token" : localStorage.getItem(localStorage.key('trello_token'))}
         });
 
+        updateLoggedIn(); // Update logged in message
+        updateName();  // Get users name and update login details
+        getBoards();
+      };
+
+      var updateName = function() {
         // Get Trello user's name
         Trello.members.get("me", function(member){
           $("#fullName").text("Logged in to Trello as: " + member.fullName + ".");
         });
+      };
 
+      var getBoards = function() {
         // Get users boards. For each board get the lists within that board
         Trello.get('/member/me/boards', function(res) {
           for (board in res) {
@@ -317,31 +340,27 @@
         }, function(err) {
           console.log(err);
         });
+      };
 
-        function getLists(boardID, boardName, callback) {
-          Trello.get('/boards/'+boardID+'/lists', function(res) {
-            var listString = "";
-            listString += "<optgroup label='"+boardName+"'>"
-            for (var item in res) {
-              var name = res[item]["name"];
-              var id = res[item]["id"];
-              listString += "<option value="+id+" id=" + id + ">" + name + "</option>"
-            };
-            listString += "</optgroup>";
-            $('.listOption').append($(listString));
-            callback(listString);
-          });
-        };
+      var getLists = function(boardID, boardName, callback) {
+        Trello.get('/boards/'+boardID+'/lists', function(res) {
+          var listString = "";
+          listString += "<optgroup label='"+boardName+"'>"
+          for (var item in res) {
+            var name = res[item]["name"];
+            var id = res[item]["id"];
+            listString += "<option value="+id+" id=" + id + ">" + name + "</option>"
+          };
+          listString += "</optgroup>";
+          $('.listOption').append($(listString));
+          callback(listString);
+        });
       };
 
       function addExtraShopifyRule() {
         $("#extraShopifyRules").append($(shopifyRule));
         var lastRule = $("#extraShopifyRules li:last-child .listOption")
         $(lastRule).append($(listsList)); // Set to list of Trello Boards
-
-        // rule_count ++ ;
-        //
-        // $("#extraShopifyRules li:last-child").attr("id", rule_count);
         $("#extraShopifyRules a").click(function() {
           $(this).parent().remove();
         });
@@ -366,27 +385,10 @@
           $("#loggedin").toggle(isLoggedIn);
       };
 
-      // Trello log in event handler
-      $("#connectLink").click(function() {
-        try {
-          Trello.authorize({
-            type  : "popup",
-            name  : "Shopify Orders",
-            scope : {
-              read    : 'allowRead',
-              write   : 'allowWrite',
-              account : 'allowAccount'
-            },
-            expiration: "never",
-            persist : true,
-            success : onAuthorize
-          })
-        } catch(e) {
-          console.log(e);
-        }
-      });
 
-      try { // See if app has already been authorized
+
+      // See if app has already been authorized
+      try {
         Trello.authorize({
           type  : "popup",
           name  : "Shopify Orders",
@@ -404,7 +406,12 @@
       };
 
       updateLoggedIn(); // Check if user is logged in or not
-      setConfiguration();
+
+      setConfiguration(); // Get user's settings and set
+
+      // Event handlers
+
+
     </script>
     <footer>
     </footer>

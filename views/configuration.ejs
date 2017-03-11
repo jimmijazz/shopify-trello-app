@@ -292,8 +292,25 @@
       // Called when the page is loaded and when the user logs in.
       var onAuthorize = function() {
 
-        // Update logged in message
-        updateLoggedIn();
+        try { // See if app has already been authorized
+          Trello.authorize({
+            type  : "popup",
+            name  : "Shopify Orders",
+            scope : {
+              read    : 'allowRead',
+              write   : 'allowWrite',
+              account : 'allowAccount'
+            },
+            expiration: "never",
+            persist : true,
+            success : onAuthorize
+          })
+        } catch(e) {
+          console.log(e);
+        };
+
+        updateLoggedIn(); // Update logged in message
+
 
         // Send Trello token server to store in the session
         $.ajax({

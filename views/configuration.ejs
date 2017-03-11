@@ -338,11 +338,12 @@
               listsList += item;
             });
           };
-          console.log(listsList)
-          setConfiguration(); // Get user's settings and set after getting Trello boards
         }, function(err) {
           console.log(err);
+
         });
+        console.log(listsList)
+        setConfiguration(); // Get user's settings and set after getting Trello boards
       };
 
       var getLists = function(boardID, boardName, callback) {

@@ -197,6 +197,8 @@
     <!-- Trello API -->
     <script src="https://api.trello.com/1/client.js?key=dbdd3808d314c362931b7c8918766c03"></script>
     <script type="text/javascript">
+
+      updateLoggedIn();
       var listsList = ""; // {BoardName : {list object}}
       // var rule_count = 0;
 
@@ -313,7 +315,7 @@
           var isLoggedIn = Trello.authorized();
           console.log(isLoggedIn);
           $("#loggedout").toggle(!isLoggedIn);
-          $("#header").toggle(isLoggedIn);
+          $("#loggedin").toggle(isLoggedIn);
       };
 
       try {

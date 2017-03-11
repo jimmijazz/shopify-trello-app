@@ -267,7 +267,6 @@
             setInitialSettings(data);
           }
         });
-        console.log(listsList);
         var setInitialSettings = function(data) {
           console.log(data)
           // Sets the initial config settings based on users saved settings.
@@ -336,6 +335,7 @@
           for (board in res) {
             getLists(res[board]["id"], res[board]['name'], function(item) {
               listsList += item;
+              console.log(listsList)
             });
           };
         }, function(err) {

@@ -337,6 +337,7 @@
               listsList += item;
             });
           };
+          setConfiguration(); // Get user's settings and set after getting Trello boards
         }, function(err) {
           console.log(err);
         });
@@ -380,12 +381,9 @@
 
       var updateLoggedIn = function() {
           var isLoggedIn = Trello.authorized();
-          console.log(isLoggedIn);
           $("#loggedout").toggle(!isLoggedIn);
           $("#loggedin").toggle(isLoggedIn);
       };
-
-
 
       // See if app has already been authorized
       try {
@@ -406,9 +404,6 @@
       };
 
       updateLoggedIn(); // Check if user is logged in or not
-
-      setConfiguration(); // Get user's settings and set
-
       // Event handlers
 
 

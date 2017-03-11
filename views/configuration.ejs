@@ -238,6 +238,56 @@
         console.log(errorMsg);
       };
 
+      var setConfiguration = function() {
+        // Get customers rules from the database
+        $.ajax({
+          type: "POST",
+          url: "/get_configuration",
+          data : {"shop" : "<%= shop %>" },
+          success : function (data) {
+            setInitialSettings(data);
+          }
+        });
+
+        var setInitialSettings = function(data) {
+          // Sets the initial config settings based on users saved settings.
+          if (data.length === 0 ) {
+            return ;  // No rules currently set
+          } else {
+              // Set recieved rule if exists
+              if (data.recieved !== "null") {
+                $('#recievedOrders option').filter(function() {
+                  return this.id === String(data.recieved)
+                }).prop('selected', true);
+              };
+
+              // Set fulfilled rule if exists
+              if (data.fulfilled !== "null") {
+                $('#fulfilledOrders option[id=' + data.fulfilled + ']').attr('selected','selected');
+              };
+
+              // Add shopify rules if they exist
+              if (data.shopify_rules.length !== 0) {
+                data.shopify_rules.forEach(function(rule) {
+                  addExtraShopifyRule();  // Add extra rule to rules div
+                  $("#extraShopifyRules li:last-child .optionSelect").val(rule.country);  // Set country/tag/barcode etc dropdown
+                  $("#extraShopifyRules li:last-child input").val(rule.input);  // Set input value
+                  $("#extraShopifyRules li:last-child .listOption option[id=" + rule.list + "]").attr('selected', 'selected');
+                })
+              };
+
+              // Add trello rules if they exist
+              if (data.trello_rules.length !== 0) {
+                data.trello_rules.forEach(function(rule) {
+                  addExtraTrelloRule();
+                  $("#extraTrelloRules li:last-child .listOption option[id=" + rule.list + "]").attr('selected', 'selected');
+                  $("#extraTrelloRules li:last-child input").val(rule.input);
+                });
+            }
+          }
+        };
+      };
+
       // Make sure Trello user is logged in. Get name, boards and lists.
       // Called when the page is loaded and when the user logs in.
       var onAuthorize = function() {
@@ -284,7 +334,6 @@
         };
       };
 
-
       function addExtraShopifyRule() {
         $("#extraShopifyRules").append($(shopifyRule));
         var lastRule = $("#extraShopifyRules li:last-child .listOption")
@@ -317,23 +366,6 @@
           $("#loggedin").toggle(isLoggedIn);
       };
 
-      try {
-        Trello.authorize({
-          type  : "popup",
-          name  : "Shopify Orders",
-          scope : {
-            read    : 'allowRead',
-            write   : 'allowWrite',
-            account : 'allowAccount'
-          },
-          expiration: "never",
-          persist : true,
-          success : onAuthorize
-        })
-      } catch(e) {
-        console.log(e);
-      };
-
       // Trello log in event handler
       $("#connectLink").click(function() {
         try {
@@ -354,58 +386,9 @@
         }
       });
 
-      // Get customers rules from the database
-      var setConfiguration = function() {
-        $.ajax({
-          type: "POST",
-          url: "/get_configuration",
-          data : {"shop" : "<%= shop %>" },
-          success : function (data) {
-            setInitialSettings(data);
-          }
-        });
 
-        var setInitialSettings = function(data) {
-          console.log(data);
-          // Sets the initial config settings based on users saved settings.
-          if (data.length === 0 ) {
-            return ;  // No rules currently set
-          } else {
-              if (data.recieved !== "null") {
-                // $('#recievedOrders option[id=' + data.recieved + ']').prop('selected',true);
-                $('#recievedOrders option').filter(function() {
-                  return this.id === String(data.recieved)
-                }).prop('selected', true);
-              };
 
-              if (data.fulfilled !== "null") {
-                console.log(data.fulfilled);
-                console.log($("#fulfilledOrders option"));
-                $('#fulfilledOrders option[id=' + data.fulfilled + ']').attr('selected','selected');
-              };
-
-              if (data.shopify_rules.length !== 0) {
-                data.shopify_rules.forEach(function(rule) {
-
-                  // try dynamically adding the select here instead of populating the select
-                  addExtraShopifyRule();  // Add extra rule to rules div
-                  $("#extraShopifyRules li:last-child .optionSelect").val(rule.country);  // Set country/tag/barcode etc dropdown
-                  $("#extraShopifyRules li:last-child input").val(rule.input);  // Set input value
-                  $("#extraShopifyRules li:last-child .listOption option[id=" + rule.list + "]").attr('selected', 'selected');
-                })
-              };
-
-              if (data.trello_rules.length !== 0) {
-                data.trello_rules.forEach(function(rule) {
-                  addExtraTrelloRule();
-                  $("#extraTrelloRules li:last-child .listOption option[id=" + rule.list + "]").attr('selected', 'selected');
-                  $("#extraTrelloRules li:last-child input").val(rule.input);
-                });
-            }
-          }
-        };
-      };
-      updateLoggedIn();
+      updateLoggedIn(); // Check if user is logged in or not
       setConfiguration();
     </script>
     <footer>

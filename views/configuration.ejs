@@ -292,23 +292,6 @@
       // Called when the page is loaded and when the user logs in.
       var onAuthorize = function() {
 
-        try { // See if app has already been authorized
-          Trello.authorize({
-            type  : "popup",
-            name  : "Shopify Orders",
-            scope : {
-              read    : 'allowRead',
-              write   : 'allowWrite',
-              account : 'allowAccount'
-            },
-            expiration: "never",
-            persist : true,
-            success : onAuthorize
-          })
-        } catch(e) {
-          console.log(e);
-        };
-
         updateLoggedIn(); // Update logged in message
 
 
@@ -403,7 +386,22 @@
         }
       });
 
-
+      try { // See if app has already been authorized
+        Trello.authorize({
+          type  : "popup",
+          name  : "Shopify Orders",
+          scope : {
+            read    : 'allowRead',
+            write   : 'allowWrite',
+            account : 'allowAccount'
+          },
+          expiration: "never",
+          persist : true,
+          success : onAuthorize
+        })
+      } catch(e) {
+        console.log(e);
+      };
 
       updateLoggedIn(); // Check if user is logged in or not
       setConfiguration();

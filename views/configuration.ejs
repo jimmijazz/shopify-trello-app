@@ -257,16 +257,18 @@
         console.log(errorMsg);
       };
 
-      var setConfiguration = function() {
+      var getConfiguration = function() {
         // Get customers rules from the database
         $.ajax({
           type: "POST",
           url: "/get_configuration",
           data : {"shop" : "<%= shop %>" },
           success : function (data) {
-            setInitialSettings(data);
-          }
-        });
+              setInitialSettings(data);
+            }
+          });
+        };
+
         var setInitialSettings = function(data) {
           console.log(data)
           // Sets the initial config settings based on users saved settings.
@@ -305,7 +307,6 @@
             }
           }
         };
-      };
 
       // Make sure Trello user is logged in. Get name, boards and lists.
       // Called when the page is loaded and when the user logs in.
@@ -338,7 +339,7 @@
             });
           };
           console.log(listsList)
-          setConfiguration(); // Get user's settings and set after getting Trello boards
+          getConfiguration(); // Get user's settings and set after getting Trello boards
         }, function(err) {
           console.log(err);
         });
@@ -404,7 +405,7 @@
       } catch(e) {
         console.log(e);
       };
-
+      getConfiguration();
       updateLoggedIn(); // Check if user is logged in or not
 
 

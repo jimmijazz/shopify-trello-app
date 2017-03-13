@@ -352,7 +352,7 @@
         console.log(boardName);
 
         Trello.get('/boards/'+boardID+'/lists', function(res) {
-          appendListToOption(res, boardID, boards[board]['name'])
+          appendListToOption(res, boardID, boardName)
         }, function(err) {
             console.log(err);
           });

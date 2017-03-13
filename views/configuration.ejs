@@ -334,19 +334,37 @@
       var getBoards = function() {
         // Get users boards. For each board get the lists within that board
         Trello.get('/member/me/boards', function(res) {
-          for (board in res) {
-            getLists(res[board]["id"], res[board]['name'], function(item) {
-              listsList += item;
-              console.log(listsList);
-            });
-          };
-          getConfiguration(); // Get user's settings and set after getting Trello boards
+          getLists(res)
         }, function(err) {
           console.log(err);
         });
       };
 
+      var getLists = function(boards, callback) {
+        for (board in boards) {
+          var boardID = boards[board]['id'];
+          var boardName = boards[board]['name'];
+
+          Trello.get('/boards/'+boardID+'/lists', function(res) {
+            var listString = "";
+            listString += "<optgroup label='"+boardName+"'>"
+            for (var item in res) {
+              var name = res[item]["name"];
+              var id = res[item]["id"];
+              listString += "<option value="+id+" id=" + id + ">" + name + "</option>"
+            };
+            listString += "</optgroup>";
+            $('.listOption').append($(listString));
+            listsList += listString;
+          }, function(err) {
+            console.log(err);
+          });
+        };
+        getConfiguration();
+      }
+
       var getLists = function(boardID, boardName, callback) {
+
         Trello.get('/boards/'+boardID+'/lists', function(res) {
           var listString = "";
           listString += "<optgroup label='"+boardName+"'>"

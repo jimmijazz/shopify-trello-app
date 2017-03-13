@@ -345,6 +345,7 @@
           var boardID = boards[board]['id'];
           var boardName = boards[board]['name'];
           var listString = "";
+          console.log(boardName);
 
           Trello.get('/boards/'+boardID+'/lists', function(res) {
             appendListToOption(res, boardID, boardName)

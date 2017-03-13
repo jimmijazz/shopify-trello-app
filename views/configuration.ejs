@@ -357,7 +357,7 @@
         var boardName = board['name'];
         Trello.get('/boards/'+boardID+'/lists', function(res) {
           appendListToOption(res, boardID, boardName, function() {
-            callback;
+            callback();
           });
         }, function(err) {
             console.log(err);
@@ -375,9 +375,8 @@
         listString += "</optgroup>";
         $('.listOption').append($(listString));
         listsList += listString;
-        callback;
+        callback();
       };
-
 
 
        var addExtraShopifyRule = function() {

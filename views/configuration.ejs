@@ -335,7 +335,7 @@
         // Get users boards. For each board get the lists within that board
         Trello.get('/member/me/boards', function(res) {
           for (board in res) {
-            getlists(board)
+            getLists(board)
           }
         }, function(err) {
           console.log(err);

@@ -334,6 +334,7 @@
       var getBoards = function() {
         // Get users boards. For each board get the lists within that board
         Trello.get('/member/me/boards', function(res) {
+          console.log(res);
           getLists(res)
         }, function(err) {
           console.log(err);
@@ -341,15 +342,13 @@
       };
 
       var getLists = function(boards) {
-
         for (board in boards) {
           var boardID = boards[board]['id'];
           var boardName = boards[board]['name'];
           var listString = "";
 
           Trello.get('/boards/'+boardID+'/lists', function(res) {
-            console.log(boardID);
-            console.log(boardName);
+            console.log(res);
             listString += "<optgroup label='"+boardName+"'>"
             for (var item in res) {
               var name = res[item]["name"];
@@ -364,7 +363,10 @@
           });
         };
         getConfiguration();
-      }
+      };
+
+
+
 
       // var getLists = function(boardID, boardName, callback) {
       //

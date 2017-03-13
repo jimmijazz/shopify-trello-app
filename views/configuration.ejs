@@ -345,6 +345,8 @@
           var boardID = boards[board]['id'];
           var boardName = boards[board]['name'];
 
+          console.log(boardID);
+          console.log(boardName;)
           Trello.get('/boards/'+boardID+'/lists', function(res) {
             var listString = "";
             listString += "<optgroup label='"+boardName+"'>"

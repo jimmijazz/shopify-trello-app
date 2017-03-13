@@ -339,6 +339,7 @@
               listsList += item;
             });
           };
+          console.log(listsList);
           getConfiguration(); // Get user's settings and set after getting Trello boards
         }, function(err) {
           console.log(err);
@@ -357,6 +358,8 @@
           listString += "</optgroup>";
           $('.listOption').append($(listString));
           callback(listString);
+        }, function(err) {
+          console.log(err);
         });
       };
 

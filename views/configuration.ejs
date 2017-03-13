@@ -341,16 +341,15 @@
       };
 
       var getLists = function(boards) {
-        // console.log(board);
-        // console.log(boards);
+
         for (board in boards) {
           var boardID = boards[board]['id'];
           var boardName = boards[board]['name'];
+          var listString = "";
 
-          console.log(boardID);
-          console.log(boardName);
           Trello.get('/boards/'+boardID+'/lists', function(res) {
-            var listString = "";
+            console.log(boardID);
+            console.log(boardName);
             listString += "<optgroup label='"+boardName+"'>"
             for (var item in res) {
               var name = res[item]["name"];

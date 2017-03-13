@@ -332,12 +332,28 @@
       };
 
       var getBoards = function() {
-        // Get users boards. For each board get the lists within that board
+        // Get users boards.
         Trello.get('/member/me/boards', function(res) {
           for (board in res) {
-            getLists(res[board]["id"], res[board]['name'], function(item) {
-              listsList += item;
+            // Get lists from each board
+            Trello.get('/boards/'+res[board]["id"]+'/lists', function(res) {
+              var listString = "";
+              listString += "<optgroup label='"+res[board]['name']+"'>"
+              for (var item in response) {
+                var name = response[item]["name"];
+                var id = response[item]["id"];
+                listString += "<option value="+id+" id=" + id + ">" + name + "</option>"
+              };
+              listString += "</optgroup>";
+              $('.listOption').append($(listString));
+              listsList += listString;
+            }, function(err) {
+              console.log(err);
             });
+
+            // getLists(res[board]["id"], res[board]['name'], function(item) {
+            //   listsList += item;
+            // });
           };
           console.log(listsList);
           getConfiguration(); // Get user's settings and set after getting Trello boards

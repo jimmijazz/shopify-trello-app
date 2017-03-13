@@ -265,7 +265,7 @@
           url: "/get_configuration",
           data : {"shop" : "<%= shop %>" },
           success : function (data) {
-              setInitialSettings(data);
+              setInitialSettings(data);   // Set form based on customer rules
             }
           });
         };
@@ -278,9 +278,8 @@
           } else {
               // Set recieved rule if exists
               if (data.recieved !== "null") {
-                $('#recievedOrders option').filter(function() {
-                  return this.id === String(data.recieved)
-                }).prop('selected', true);
+                $('#recievedOrders').value = data.recieved;
+
               };
 
               // Set fulfilled rule if exists

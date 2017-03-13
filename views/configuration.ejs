@@ -336,7 +336,7 @@
         Trello.get('/member/me/boards', function(res) {
           for (board in res) {
             // Get lists from each board
-            Trello.get('/boards/'+res[board]["id"]+'/lists', function(res) {
+            Trello.get('/boards/'+res[board]["id"]+'/lists', function(response) {
               var listString = "";
               listString += "<optgroup label='"+res[board]['name']+"'>"
               for (var item in response) {

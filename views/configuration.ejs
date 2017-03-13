@@ -334,23 +334,28 @@
       var getBoards = function() {
         // Get users boards. For each board get the lists within that board
         Trello.get('/member/me/boards', function(res) {
-          getLists(res)
+          for (board in res) {
+            getlists(board)
+          }
         }, function(err) {
           console.log(err);
         });
+        getConfiguration();
       };
 
-      var getLists = function(boards) {
-        for (board in boards) {
-          console.log(boards[board]['name']);
-          var boardID = boards[board]['id'];
-          Trello.get('/boards/'+boardID+'/lists', function(res) {
-            appendListToOption(res, boardID, boards[board]['name'])
-          }, function(err) {
+      var getLists = function(board) {
+        var boardID = board['id'];
+        var boardName = board['name'];
+
+        console.log(boardID);
+        console.log(boardName);
+
+        Trello.get('/boards/'+boardID+'/lists', function(res) {
+          appendListToOption(res, boardID, boards[board]['name'])
+        }, function(err) {
             console.log(err);
           });
         };
-        getConfiguration();
       };
 
       var appendListToOption = function(res, boardID, boardName) {

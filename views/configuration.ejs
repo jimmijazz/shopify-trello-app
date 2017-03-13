@@ -356,7 +356,7 @@
             console.log(err);
           });
         };
-      };
+
 
       var appendListToOption = function(res, boardID, boardName) {
         console.log(boardName);
@@ -374,24 +374,6 @@
       };
 
 
-
-      // var getLists = function(boardID, boardName, callback) {
-      //
-      //   Trello.get('/boards/'+boardID+'/lists', function(res) {
-      //     var listString = "";
-      //     listString += "<optgroup label='"+boardName+"'>"
-      //     for (var item in res) {
-      //       var name = res[item]["name"];
-      //       var id = res[item]["id"];
-      //       listString += "<option value="+id+" id=" + id + ">" + name + "</option>"
-      //     };
-      //     listString += "</optgroup>";
-      //     $('.listOption').append($(listString));
-      //     callback(listString);
-      //   }, function(err) {
-      //     console.log(err);
-      //   });
-      // };
 
        var addExtraShopifyRule = function() {
         $("#extraShopifyRules").append($(shopifyRule));

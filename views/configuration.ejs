@@ -341,6 +341,7 @@
           for (board in res) {
             getLists(res[board], function() {
               boardCount ++;
+              console.log(boardCount);
               if (boardCount == numberOfBoards) {
                 getConfiguration();
               }
@@ -352,13 +353,8 @@
       };
 
       var getLists = function(board, callback) {
-        console.log(board)
         var boardID = board['id'];
         var boardName = board['name'];
-
-        console.log(boardID);
-        console.log(boardName);
-
         Trello.get('/boards/'+boardID+'/lists', function(res) {
           appendListToOption(res, boardID, boardName, function() {
             callback;
@@ -369,8 +365,6 @@
         };
 
       var appendListToOption = function(res, boardID, boardName, callback) {
-        console.log(boardName);
-        console.log(res);
         var listString = "";
         listString += "<optgroup label='"+boardName+"'>"
         for (var item in res) {

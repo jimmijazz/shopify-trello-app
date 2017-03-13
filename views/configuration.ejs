@@ -279,7 +279,7 @@
               // Set recieved rule if exists
               if (data.recieved !== "null") {
                 console.log(data.recieved);
-                $('#recievedOrders').value = data.recieved;
+                $('#recievedOrders option[id=' + data.recieved + ']').attr('selected','selected');
 
               };
 
@@ -334,14 +334,13 @@
       var getBoards = function() {
         // Get users boards. For each board get the lists within that board
         Trello.get('/member/me/boards', function(res) {
-          var numberOfBoards = res.length;
-          console.log(numberOfBoards);
-          var boardCount = 0;
-
+          var numberOfBoards = res.length;  // total number of boards
+          var boardCount = 0;  // Count of boards that have had their lists
+          // For each board get lists from board and increment count
           for (board in res) {
             getLists(res[board], function() {
               boardCount ++;
-              console.log(boardCount);
+              // Once all the lists have loaded get user's configuration
               if (boardCount == numberOfBoards) {
                 getConfiguration();
               }
@@ -356,6 +355,7 @@
         var boardID = board['id'];
         var boardName = board['name'];
         Trello.get('/boards/'+boardID+'/lists', function(res) {
+          // Append each list to the Option value of select element
           appendListToOption(res, boardID, boardName, function() {
             callback();
           });

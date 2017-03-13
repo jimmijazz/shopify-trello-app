@@ -342,12 +342,9 @@
 
       var getLists = function(boards) {
         for (board in boards) {
-          var boardID = boards[board]['id'];
-          var boardName = boards[board]['name'];
-          var listString = "";
-          console.log(boardName);
-
           Trello.get('/boards/'+boardID+'/lists', function(res) {
+            var boardID = boards[board]['id'];
+            var boardName = boards[board]['name'];
             appendListToOption(res, boardID, boardName)
           }, function(err) {
             console.log(err);
@@ -359,6 +356,7 @@
       var appendListToOption = function(res, boardID, boardName) {
         console.log(boardName);
         console.log(res);
+        var listString = "";
         listString += "<optgroup label='"+boardName+"'>"
         for (var item in res) {
           var name = res[item]["name"];

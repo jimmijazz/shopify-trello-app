@@ -342,10 +342,10 @@
 
       var getLists = function(boards) {
         for (board in boards) {
+          console.log(boards[board]['name']);
           var boardID = boards[board]['id'];
           Trello.get('/boards/'+boardID+'/lists', function(res) {
-            var boardName = boards[board]['name'];
-            appendListToOption(res, boardID, boardName)
+            appendListToOption(res, boardID, boards[board]['name'])
           }, function(err) {
             console.log(err);
           });

@@ -13,10 +13,9 @@
 		</script>
 	</head>
   <body>
-                        <!-- SHOPIFY HEADER -->
-
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+                        <!-- SHOPIFY HEADER -->
     <script>
       $("#savedMsg").toggle(false);
 
@@ -40,11 +39,10 @@
             primary: {
               label: "Save",
               callback: function() {
-
-                // Make sure save message is hidden
+                // Make sure save message is hidden to start
                 $("#savedMsg").toggle(false);
 
-                // Dictionary that gets sent to server
+                // Dictionary that gets sent to server to store user data
                 var rulesData = {
                   "shop"  : "<%= shop %>",
                   "recieved" : "",
@@ -53,11 +51,11 @@
                   "trello_rules" : []
                 };
 
-
                 // Recieved orders go to this list
                 var recieved = $("#recievedOrders").find(":selected");
                 if(recieved.val() === "-") {
                   rulesData["recieved"] = null;
+                  console.log('Recieved is null')
                 } else {
                   rulesData["recieved"] = recieved.attr('id');
                 };
@@ -66,6 +64,7 @@
                 var fulfilled = $("#fulfilledOrders").find(":selected");
                 if(fulfilled.val() === "-") {
                   rulesData["fulfilled"] = null;
+                  console.log('Fulfilled is null')
                 } else {
                   rulesData["fulfilled"] = fulfilled.attr('id');
                 };
@@ -73,10 +72,11 @@
                 // Shopify Rules
                 var shopifyRules = $("#extraShopifyRules").children();
                 $.each(shopifyRules, function() {
-                  var newRule = {}
+                  var newRule = {};
                   // newRule.id = (this.id);  //id
                   newRule.country = ($(this).find(".optionSelect").val()); // country/tag
                   newRule.input = ($(this).find("input").val()); //input
+                  // add check input here first.
                   newRule.list = ($(this).find(".listOption").find(":selected").attr('id'));
 
                   rulesData["shopify_rules"].push(newRule);
@@ -134,6 +134,7 @@
             ]
           }
         });
+
         ShopifyApp.Bar.loadingOff();
 
       });

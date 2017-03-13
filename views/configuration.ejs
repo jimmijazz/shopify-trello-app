@@ -53,7 +53,7 @@
                   "trello_rules" : []
                 };
 
-   
+
                 // Recieved orders go to this list
                 var recieved = $("#recievedOrders").find(":selected");
                 if(recieved.val() === "-") {
@@ -362,7 +362,7 @@
         });
       };
 
-      function addExtraShopifyRule() {
+       var addExtraShopifyRule = function() {
         $("#extraShopifyRules").append($(shopifyRule));
         var lastRule = $("#extraShopifyRules li:last-child .listOption")
         $(lastRule).append($(listsList)); // Set to list of Trello Boards
@@ -371,7 +371,7 @@
         });
       };
 
-      function addExtraTrelloRule() {
+      var addExtraTrelloRule = function() {
         $("#extraTrelloRules").append($(trelloRule));
         var lastRule = $("#extraTrelloRules li:last-child .listOption")
         $(lastRule).append($(listsList));
@@ -406,6 +406,7 @@
       } catch(e) {
         console.log(e);
       };
+
       getConfiguration();
       updateLoggedIn(); // Check if user is logged in or not
 

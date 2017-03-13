@@ -278,6 +278,7 @@
           } else {
               // Set recieved rule if exists
               if (data.recieved !== "null") {
+                console.log(data.recieved);
                 $('#recievedOrders').value = data.recieved;
 
               };
@@ -338,7 +339,6 @@
               listsList += item;
             });
           };
-          console.log(listsList)
           getConfiguration(); // Get user's settings and set after getting Trello boards
         }, function(err) {
           console.log(err);

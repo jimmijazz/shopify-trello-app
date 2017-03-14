@@ -47,6 +47,12 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 
 const SHOP = 'shop';  // MongoDB collection
 
+var updateTrelloWebhooks = function(idModel) {
+  // Check if Trello webhooks exist for the user. Add if false, update it true
+
+};
+
+
 // Shopify Authentication
 
 // This function initializes the Shopify OAuth Process
@@ -90,7 +96,7 @@ app.get('/access_token', function(req, res) {
             res.redirect('/');
         })
     }
-})
+});
 
 // Renders the install/login form
 app.get('/install', function(req, res) {
@@ -120,7 +126,7 @@ app.post('/trello', function(req, res) {
 app.get('/', function(req, res) {
     if (req.session.access_token) {
 
-      // Create webhooks
+      // Create Shopify Webhooks
       const webhook_data = {
         "webhook": {
           "topic": "orders/create",
@@ -148,6 +154,7 @@ app.get('/', function(req, res) {
         };
       });
 
+      // Render configuration setup page
       res.render('configuration', {
           title: 'Configuration',
           shop : req.session.shop,
@@ -359,6 +366,9 @@ app.post('/configuration', function(req, res) {
             shopify_rules : newShopifyRules,
             trello_rules : newTrelloRules
           });
+
+      // Check if Trello webhooks exist. Update if different
+
       };
       // console.log(req.body);
       res.sendStatus(200);
@@ -373,6 +383,10 @@ app.post('/get_configuration', function(req, res) {
     if (err) {
       console.log(err);
     } else {
+
+      // Check if webhooks exist
+
+      // Update if
       res.send(result);
     };
   })

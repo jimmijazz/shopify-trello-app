@@ -120,55 +120,55 @@ app.post('/trello', function(req, res) {
 app.get('/', function(req, res) {
     if (req.session.access_token) {
 
-      // // Create webhooks
-      // const webhook_data = {
-      //   "webhook": {
-      //     "topic": "orders/create",
-      //     "address": config.app_url + "/orders",
-      //     "format": "json"
-      //   },
-      //   "webhook": {
-      //     "topic": "orders/updated",
-      //     "address": config.app_url + "orders_updated",
-      //     "format": "json"
-      //   }
-      // };
-      //
-      // request({
-      //   method: 'POST',
-      //   url : "https://" + req.session.shop + "/admin/webhooks.json",
-      //   headers: { "X-Shopify-Access-Token": req.session.access_token},
-      //   json : webhook_data
-      // }, function(err, response, body) {
-      //     if (err) {
-      //       console.log(err);
-      //       console.log("Post response:", body)
-      //     } else {
-      //     console.log('Post response:', body)
-      //   };
-      // });
+      // Create webhooks
+      const webhook_data = {
+        "webhook": {
+          "topic": "orders/create",
+          "address": config.app_url + "/orders",
+          "format": "json"
+        },
+        "webhook": {
+          "topic": "orders/updated",
+          "address": config.app_url + "orders_updated",
+          "format": "json"
+        }
+      };
 
-        res.render('configuration', {
-            title: 'Configuration',
-            shop : req.session.shop,
-            trello : false,
-            api_key: config.oauth.api_key,
-            shop: req.session.shop
-        });
+      request({
+        method: 'POST',
+        url : "https://" + req.session.shop + "/admin/webhooks.json",
+        headers: { "X-Shopify-Access-Token": req.session.access_token},
+        json : webhook_data
+      }, function(err, response, body) {
+          if (err) {
+            console.log(err);
+            console.log("Post response:", body)
+          } else {
+          console.log('Post response:', body)
+        };
+      });
+
+      res.render('configuration', {
+          title: 'Configuration',
+          shop : req.session.shop,
+          trello : false,
+          api_key: config.oauth.api_key,
+          shop: req.session.shop
+      });
     } else {
       // App already installed
-        if (req.query.shop) {
-          req.session.shop = req.query.shop;
-          res.render('embedded_app_redirect', {
-              shop: req.query.shop,
-              api_key: config.oauth.api_key,
-              scope: config.oauth.scope,
-              redirect_uri: config.oauth.redirect_uri
-          });
-        } else {
-          res.sendStatus(400);
-        }
-    }
+      if (req.query.shop) {
+        req.session.shop = req.query.shop;
+        res.render('embedded_app_redirect', {
+            shop: req.query.shop,
+            api_key: config.oauth.api_key,
+            scope: config.oauth.scope,
+            redirect_uri: config.oauth.redirect_uri
+        });
+      } else {
+        res.sendStatus(400);
+      }
+    };
 })
 
 app.get('/add_product', function(req, res) {
@@ -271,21 +271,13 @@ function verifyRequest(req, res, next) {
         next();
     } else {
         return res.json(400);
-    }
-
-}
+    };
+};
 
 // SHOPIFY WEBHOOKS
 app.post('/orders', function(req, res) {
   // Endpoint for recieving new orders
   console.log(req);
-  res.sendStatus(200);
-});
-
-app.post('/orders_updated', function(req, res) {
-  // Endpoint for recieving when an order is updated
-  console.log('use post');
-  console.log(req.session.shop, req.body);
   res.sendStatus(200);
 });
 
@@ -295,12 +287,20 @@ app.get('/trello_webhook_confirm', function(req, res) {
   res.sendStatus(200);
 });
 
+// When an order is updated
+app.post('/orders_updated', function(req, res) {
+  console.log('use post');
+  console.log(req.session.shop, req.body);
+  res.sendStatus(200);
+});
+
+
 app.post('/trello_update', function(req, res) {
   console.log(req.body);
   res.sendStatus(200);
 });
 
-// Run when configuration is saved
+// When configuration is saved
 app.post('/configuration', function(req, res) {
   try {
     var newShopifyRules = [];
@@ -310,7 +310,8 @@ app.post('/configuration', function(req, res) {
 
     // For each rule sent add the rule as an object to appropriate list
     for (var item in req.body) {
-      // Shopify Rule
+
+      // New Shopify Rule (can be multiple Shopify rules)
       if (String(item).includes("country") && String(item).includes("shopify_rules")) {
         newShopifyRules.push({
           "_id"      : shopifyIndex,
@@ -320,19 +321,19 @@ app.post('/configuration', function(req, res) {
         });
         shopifyIndex ++;  // Increment unique ID for each rule
 
-      // Trello Rule
-    } else if (String(item).includes("list") && String(item).includes("trello_rules")) {
+      // New Trello rule (can be multiple Trello rules)
+      } else if (String(item).includes("list") && String(item).includes("trello_rules")) {
         newTrelloRules.push({
           "_id"      : trelloIndex,
           "list"    : req.body["trello_rules[" + trelloIndex + "][list]"],
           "input"   : req.body["trello_rules[" + trelloIndex + "][input]"],
         });
         trelloIndex ++;
-      }
+      };
     };
   } catch (err) {
     console.log(err);
-  }
+  };
 
   // Check if shop exists
   db.collection(SHOP).findOne({_id : req.body.shop }, function(err, result) {
@@ -341,6 +342,7 @@ app.post('/configuration', function(req, res) {
       res.sendStatus(500);
     } else {
       if (result === null) {
+        // Shop does not exist, insert new one
         db.collection(SHOP).insertOne({
           _id : req.body.shop,
           recieved : req.body.recieved,
@@ -349,19 +351,20 @@ app.post('/configuration', function(req, res) {
           trello_rules : newTrelloRules
         });
       } else {
+        // Shop does exist, update rules
         db.collection(SHOP).update(
             {_id : req.body.shop},
             {recieved : req.body.recieved,
             fulfilled : req.body.fulfilled,
             shopify_rules : newShopifyRules,
             trello_rules : newTrelloRules
-          }
-        )
-      }
-      console.log(req.body);
+          });
+      };
+      // console.log(req.body);
       res.sendStatus(200);
     }
-  })
+  });
+
 });
 
 // Returns the current settings for a shop
@@ -373,7 +376,7 @@ app.post('/get_configuration', function(req, res) {
       res.send(result);
     };
   })
-})
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -405,5 +408,4 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen((process.env.PORT || 3000));
-
 console.log("Listening on port" + process.env.PORT);

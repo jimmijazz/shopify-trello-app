@@ -15,7 +15,7 @@ var Trello = require("node-trello");
 var OAuth = (require("oauth")).OAuth;
 const mongodb = require("mongodb");
 const ObjectID = mongodb.ObjectID;
-const OAUTH_API_KEY = process.env.oath_api_key;
+const OAUTH_API_KEY = process.env.oauth_api_key;
 const CLIENT_SECRET = process.env.client_secret;
 const TRELLO_KEY = process.env.trello_key;
 const TRELLO_SECRET = process.env.trello_secret;
@@ -119,7 +119,7 @@ app.get('/modal_content', function(req, res) {
 app.post('/trello', function(req, res) {
   // Creates new Trello object
   req.session.trello_token = req.body.trello_token;
-  var t = new Trello(TRELLO_KEY,req.session.trello_token);
+  var t = new Trello(TRELLO,req.session.trello_token);
   req.session.trello = t;
   res.sendStatus(200);
 

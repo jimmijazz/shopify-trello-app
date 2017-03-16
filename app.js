@@ -15,6 +15,10 @@ var Trello = require("node-trello");
 var OAuth = (require("oauth")).OAuth;
 const mongodb = require("mongodb");
 const ObjectID = mongodb.ObjectID;
+const OAUTH_API_KEY = process.env.oath_api_key;
+const CLIENT_SECRET = process.env.client_secret;
+const TRELLO_KEY = process.env.trello_key;
+const TRELLO_SECRET = process.env.trello_secret;
 
 var requestUrl = "https://trello.com/1/OAuthGetRequestToken";
 var accessUrl = "https://trello.com/1/OAuthGetAccessToken";
@@ -63,7 +67,7 @@ app.get('/shopify_auth', function(req, res) {
         req.session.shop = req.query.shop;
         res.render('embedded_app_redirect', {
             shop: req.query.shop,
-            api_key: config.oauth.api_key,
+            api_key: OAUTH_API_KEY,
             scope: config.oauth.scope,
             redirect_uri: config.oauth.redirect_uri
         });
@@ -75,8 +79,8 @@ app.get('/shopify_auth', function(req, res) {
 app.get('/access_token', function(req, res) {
     if (req.query.shop) {
         var params = {
-            client_id: config.oauth.api_key,
-            client_secret: config.oauth.client_secret,
+            client_id: OAUTH_API_KEY,
+            client_secret: CLIENT_SECRET,
             code: req.query.code
         }
         var req_body = querystring.stringify(params);
@@ -115,11 +119,11 @@ app.get('/modal_content', function(req, res) {
 app.post('/trello', function(req, res) {
   // Creates new Trello object
   req.session.trello_token = req.body.trello_token;
-  var t = new Trello(config.trello_key,req.session.trello_token);
+  var t = new Trello(TRELLO_KEY,req.session.trello_token);
   req.session.trello = t;
   res.sendStatus(200);
 
-})
+});
 
 // The home page, checks if we have the access token, if not we are redirected to the install page
 // This check should probably be done on every page, and should be handled by a middleware
@@ -131,7 +135,7 @@ app.get('/', function(req, res) {
           title: 'Configuration',
           shop : req.session.shop,
           trello : false,
-          api_key: config.oauth.api_key,
+          api_key: OAUTH_API_KEY,
           shop: req.session.shop
       });
     } else {
@@ -140,7 +144,7 @@ app.get('/', function(req, res) {
         req.session.shop = req.query.shop;
         res.render('embedded_app_redirect', {
             shop: req.query.shop,
-            api_key: config.oauth.api_key,
+            api_key: OAUTH_API_KEY,
             scope: config.oauth.scope,
             redirect_uri: config.oauth.redirect_uri
         });
@@ -153,7 +157,7 @@ app.get('/', function(req, res) {
 app.get('/add_product', function(req, res) {
     res.render('add_product', {
         title: 'Add A Product',
-        api_key: config.oauth.api_key,
+        api_key: OAUTH_API_KEY,
         shop: req.session.shop,
     });
 })
@@ -191,7 +195,7 @@ app.get('/products', function(req, res) {
         body = JSON.parse(body);
         res.render('products', {
             title: 'Products',
-            api_key: config.oauth.api_key,
+            api_key: OAUTH_API_KEY,
             shop: req.session.shop,
             next: next,
             previous: previous,
@@ -243,7 +247,7 @@ function verifyRequest(req, res, next) {
     delete map['hmac'];
 
     var message = querystring.stringify(map);
-    var generated_hash = crypto.createHmac('sha256', config.oauth.client_secret).update(message).digest('hex');
+    var generated_hash = crypto.createHmac('sha256', CLIENT_SECRET).update(message).digest('hex');
     console.log(generated_hash);
     console.log(req.query.hmac);
     if (generated_hash === req.query.hmac) {

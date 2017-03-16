@@ -290,10 +290,15 @@ app.post('/configuration', function(req, res) {
     console.log(errorMsg);
   };
 
-  // Get Trello webhooks
   t = req.session.trello;
   var t = new Trello(req.session.trello.key,req.session.trello.token);
   t.get("/1/members/me/tokens?webhooks=true", success, error);
+
+  var createTrelloWebhook = function(parameters) {
+    t.post('/webhooks', parameters, success, error)
+  };
+  // Get Trello webhooks
+
   // Check for existing Webhooks
 
   // Create Shopify Webhooks

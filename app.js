@@ -283,11 +283,11 @@ app.post('/trello_update', function(req, res) {
 app.post('/configuration', function(req, res) {
 
   var success = function(successMsg) {
-    asyncOutput(successMsg);
+    console.log(successMsg);
   };
 
   var error = function(errorMsg) {
-    asyncOutput(errorMsg);
+    console.log(errorMsg);
   };
 
   // Get Trello webhooks

@@ -67,7 +67,7 @@ app.get('/shopify_auth', function(req, res) {
         req.session.shop = req.query.shop;
         res.render('embedded_app_redirect', {
             shop: req.query.shop,
-            api_key: OAUTH_API_KEY,
+            api_key: config.oauth.client_id,
             scope: config.oauth.scope,
             redirect_uri: config.oauth.redirect_uri
         });

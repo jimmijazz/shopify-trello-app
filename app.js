@@ -80,7 +80,7 @@ app.get('/access_token', function(req, res) {
     if (req.query.shop) {
 
         var params = {
-            client_id: config.oauth.client_id,
+            client_id: OAUTH_API_KEY,
             client_secret: CLIENT_SECRET,
             code: req.query.code
         };

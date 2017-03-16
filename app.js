@@ -82,7 +82,8 @@ app.get('/access_token', function(req, res) {
             client_id: OAUTH_API_KEY,
             client_secret: CLIENT_SECRET,
             code: req.query.code
-        }
+        };
+
         var req_body = querystring.stringify(params);
         request({
             url: 'https://' + req.query.shop + '/admin/oauth/access_token',

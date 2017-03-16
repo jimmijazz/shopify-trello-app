@@ -78,11 +78,14 @@ app.get('/shopify_auth', function(req, res) {
 // Shopify provides the app the is authorization_code, which is exchanged for an access token
 app.get('/access_token', function(req, res) {
     if (req.query.shop) {
+
         var params = {
             client_id: OAUTH_API_KEY,
             client_secret: CLIENT_SECRET,
             code: req.query.code
         };
+
+        console.log(params);
 
         var req_body = querystring.stringify(params);
         request({

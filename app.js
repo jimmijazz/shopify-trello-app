@@ -126,34 +126,6 @@ app.post('/trello', function(req, res) {
 app.get('/', function(req, res) {
     if (req.session.access_token) {
 
-      // Create Shopify Webhooks
-      const webhook_data = {
-        "webhook": {
-          "topic": "orders/create",
-          "address": config.app_url + "/orders",
-          "format": "json"
-        },
-        "webhook": {
-          "topic": "orders/updated",
-          "address": config.app_url + "orders_updated",
-          "format": "json"
-        }
-      };
-
-      request({
-        method: 'POST',
-        url : "https://" + req.session.shop + "/admin/webhooks.json",
-        headers: { "X-Shopify-Access-Token": req.session.access_token},
-        json : webhook_data
-      }, function(err, response, body) {
-          if (err) {
-            console.log(err);
-            console.log("Post response:", body)
-          } else {
-          console.log('Post response:', body)
-        };
-      });
-
       // Render configuration setup page
       res.render('configuration', {
           title: 'Configuration',
@@ -192,11 +164,11 @@ app.get('/trello_data', function(req, res) {
   } else {
     t = req.session.trello;
     var t = new Trello(req.session.trello.key,req.session.trello.token);
-    console.log(t);
     t.get("/1/members/me", function(err, data) {
+      console.log(data);
     if (err) throw err;
     res.send(data);
-    })
+  });
   }
 })
 
@@ -309,6 +281,44 @@ app.post('/trello_update', function(req, res) {
 
 // When configuration is saved
 app.post('/configuration', function(req, res) {
+
+  // Get Trello webhooks
+  t = req.session.trello;
+  var t = new Trello(req.session.trello.key,req.session.trello.token);
+  t.get("/1/members/me/tokens?webhooks=true", function(err, data) {
+    console.log(data);
+  if (err) throw err;
+  console.log(data);
+  // Check for existing Webhooks
+
+  // Create Shopify Webhooks
+  // const webhook_data = {
+  //   "webhook": {
+  //     "topic": "orders/create",
+  //     "address": config.app_url + "/orders",
+  //     "format": "json"
+  //   },
+  //   "webhook": {
+  //     "topic": "orders/updated",
+  //     "address": config.app_url + "orders_updated",
+  //     "format": "json"
+  //   }
+  // };
+  //
+  // request({
+  //   method: 'POST',
+  //   url : "https://" + req.session.shop + "/admin/webhooks.json",
+  //   headers: { "X-Shopify-Access-Token": req.session.access_token},
+  //   json : webhook_data
+  // }, function(err, response, body) {
+  //     if (err) {
+  //       console.log(err);
+  //       console.log("Post response:", body)
+  //     } else {
+  //     console.log('Post response:', body)
+  //   };
+  // });
+
   try {
     var newShopifyRules = [];
     var newTrelloRules = [];

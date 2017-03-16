@@ -3,5 +3,5 @@
 		"redirect_uri": "https://shopify-trello-app.herokuapp.com/access_token",
 		"scope": "write_orders,read_orders,read_customers,write_customers,read_products"
 	},
-	"app_url": "https://shopify-trello-app.herokuapp.com/",
+	"app_url": "https://shopify-trello-app.herokuapp.com/"
 }

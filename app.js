@@ -282,14 +282,18 @@ app.post('/trello_update', function(req, res) {
 // When configuration is saved
 app.post('/configuration', function(req, res) {
 
+  var success = function(successMsg) {
+    asyncOutput(successMsg);
+  };
+
+  var error = function(errorMsg) {
+    asyncOutput(errorMsg);
+  };
+
   // Get Trello webhooks
   t = req.session.trello;
   var t = new Trello(req.session.trello.key,req.session.trello.token);
-  t.get("/1/members/me/tokens?webhooks=true", function(err, data) {
-    console.log(data);
-  if (err) throw err;
-  console.log(data);
-});
+  t.get("/1/members/me/tokens?webhooks=true", success, error);
   // Check for existing Webhooks
 
   // Create Shopify Webhooks

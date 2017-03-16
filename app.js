@@ -148,7 +148,7 @@ app.get('/', function(req, res) {
         res.sendStatus(400);
       }
     };
-})
+});
 
 app.get('/add_product', function(req, res) {
     res.render('add_product', {
@@ -289,6 +289,7 @@ app.post('/configuration', function(req, res) {
     console.log(data);
   if (err) throw err;
   console.log(data);
+});
   // Check for existing Webhooks
 
   // Create Shopify Webhooks

@@ -1,5 +1,6 @@
 {
 	"oauth": {
+		"client_id" : "7915902bc7ec70e2d6f41d9efee63bfe",
 		"redirect_uri": "https://shopify-trello-app.herokuapp.com/access_token",
 		"scope": "write_orders,read_orders,read_customers,write_customers,read_products"
 	},

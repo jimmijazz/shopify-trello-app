@@ -302,6 +302,11 @@ app.post('/trello_update', function(req, res) {
 
 // Run when configuration is saved
 app.post('/configuration', function(req, res) {
+
+  // Check if Shopify Webhooks exists
+
+  // Check if Trello Webhooks exists
+
   try {
     var newShopifyRules = [];
     var newTrelloRules = [];

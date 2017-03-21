@@ -45,7 +45,7 @@
                 // Dictionary that gets sent to server to store user data
                 var rulesData = {
                   "shop"  : "<%= shop %>",
-                  "trello_token" : localStorage.getItem(localStorage.key('trello_token')),
+                  "trello_token" : "",
                   "recieved" : "",
                   "fulfilled" : "",
                   "shopify_rules" : [],
@@ -92,7 +92,7 @@
                   newRule.input = $(this).find("input").val();
                   rulesData["trello_rules"].push(newRule);
                 });
-
+                rulesData['trello_token'] = localStorage.getItem(localStorage.key('trello_token'));
                 $.ajax({
                   type: "POST",
                   url : "/configuration",

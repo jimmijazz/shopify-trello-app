@@ -371,25 +371,11 @@ app.post('/configuration', function(req, res) {
 
 // Returns the current settings for a shop
 app.post('/get_configuration', function(req, res) {
-  console.log(req.body);
-  var t = new Trello(process.env.TRELLO_KEY, req.body.trello_token);
-  console.log(t);
-  var success = function(successMsg) {
-  console.log('Trello message');
-  console.log(successMsg);
-  };
-
-  var error = function(errorMsg) {
-    console.log('Trello error');
-    console.log(errorMsg);
-  };
-
 
   db.collection(SHOP).findOne({_id : req.body.shop }, function(err, result) {
     if (err) {
       console.log(err);
     } else {
-      t.get('/members/me/tokens?webhooks=true', success, error);
       res.send(result);
     };
   })

@@ -320,8 +320,6 @@
         data : {"trello_token" : localStorage.getItem(localStorage.key('trello_token'))}
       });
 
-      rulesData['trello_token'] = localStorage.getItem(localStorage.key('trello_token'));
-
       checkTrelloWebhooks();
       updateLoggedIn(); // Update logged in message
       updateName();  // Get users name and update login details

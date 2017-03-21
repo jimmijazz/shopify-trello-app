@@ -92,6 +92,7 @@
                   newRule.input = $(this).find("input").val();
                   rulesData["trello_rules"].push(newRule);
                 });
+                console.log('check localstorage', localStorage.getItem(localStorage.key('trello_token')));
                 rulesData['trello_token'] = localStorage.getItem(localStorage.key('trello_token'));
                 $.ajax({
                   type: "POST",

@@ -373,7 +373,7 @@ app.post('/configuration', function(req, res) {
 app.post('/get_configuration', function(req, res) {
 
   var t = new Trello(process.env.TRELLO_KEY, req.body.trello_token);
-
+  console.log(t);
   var success = function(successMsg) {
   console.log('Trello message');
   console.log(successMsg);

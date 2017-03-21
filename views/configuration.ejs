@@ -350,7 +350,7 @@
         console.log('Trello error');
         console.log(errorMsg);
       };
-      var webhook_url = "https://" + <%= shop %> + "/admin/webhooks.json"
+      var webhook_url = "https://" + <% shop %> + "/admin/webhooks.json"
       $.ajax({
           type: "POST",
           url : webhook_url,

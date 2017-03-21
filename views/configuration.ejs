@@ -353,7 +353,7 @@
 
       $.ajax({
           type: "POST",
-          url : "https://" + <%= shop %> + "/admin/webhooks.json",
+          url : "https://" + String(<%= shop %>) + "/admin/webhooks.json",
           sucess: function(res) {
             logmessage(res);
           },

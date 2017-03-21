@@ -380,6 +380,7 @@ app.post('/get_configuration', function(req, res) {
   };
 
   var error = function(errorMsg) {
+    console.log('Trello error');
     console.log(errorMsg);
   };
 

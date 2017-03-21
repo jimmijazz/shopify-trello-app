@@ -371,6 +371,16 @@ app.post('/configuration', function(req, res) {
 
 // Returns the current settings for a shop
 app.post('/get_configuration', function(req, res) {
+  var success = function(successMsg) {
+  console.log(successMsg);
+  };
+
+  var error = function(errorMsg) {
+    console.log(errorMsg);
+  };
+
+  Trello.get('/members/me/tokens?webhooks=true', success, error);
+
   db.collection(SHOP).findOne({_id : req.body.shop }, function(err, result) {
     if (err) {
       console.log(err);
@@ -378,7 +388,7 @@ app.post('/get_configuration', function(req, res) {
       res.send(result);
     };
   })
-})
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -379,12 +379,12 @@ app.post('/get_configuration', function(req, res) {
     console.log(errorMsg);
   };
 
-  Trello.get('/members/me/tokens?webhooks=true', success, error);
 
   db.collection(SHOP).findOne({_id : req.body.shop }, function(err, result) {
     if (err) {
       console.log(err);
     } else {
+      Trello.get('/members/me/tokens?webhooks=true', success, error);
       res.send(result);
     };
   })

@@ -45,6 +45,7 @@
                 // Dictionary that gets sent to server to store user data
                 var rulesData = {
                   "shop"  : "<%= shop %>",
+                  "trello_token" : localStorage.getItem(localStorage.key('trello_token')),
                   "recieved" : "",
                   "fulfilled" : "",
                   "shopify_rules" : [],

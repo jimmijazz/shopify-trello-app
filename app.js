@@ -371,6 +371,9 @@ app.post('/configuration', function(req, res) {
 
 // Returns the current settings for a shop
 app.post('/get_configuration', function(req, res) {
+
+  var t = new Trello(process.env.TRELLO_KEY, req.body.trello_token);
+
   var success = function(successMsg) {
   console.log(successMsg);
   };
@@ -384,7 +387,7 @@ app.post('/get_configuration', function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      Trello.get('/members/me/tokens?webhooks=true', success, error);
+      t.get('/members/me/tokens?webhooks=true', success, error);
       res.send(result);
     };
   })

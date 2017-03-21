@@ -15,9 +15,10 @@
   <body>
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-                        <!-- SHOPIFY HEADER -->
+
+    <!-- SHOPIFY HEADER -->
     <script>
-      $("#savedMsg").toggle(false);
+      $("#savedMsg").toggle(false);  // Displayys Trello message
 
       var saveMessage = function(text) {
         $("savedMsg").removeClass();
@@ -337,6 +338,28 @@
       };
 
       Trello.get('/members/me/tokens?webhooks=true', success, error);
+    };
+
+    var checkShopifyWebhooks = function() {
+      var logMessage = function(successMsg) {
+        console.log(successMsg);
+      };
+
+      var error = function(errorMsg) {
+        console.log('Trello error');
+        console.log(errorMsg);
+      };
+
+      $.ajax({
+          type: "POST",
+          url : "https://" + <%= shop %> + "/admin/webhooks.json",
+          sucess: function(res) {
+            logmessage(res);
+          },
+          error: function(res) {
+            logmessage(res);
+          };
+        });
     };
 
     var updateName = function() {

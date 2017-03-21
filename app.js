@@ -371,7 +371,7 @@ app.post('/configuration', function(req, res) {
 
 // Returns the current settings for a shop
 app.post('/get_configuration', function(req, res) {
-
+  
   db.collection(SHOP).findOne({_id : req.body.shop }, function(err, result) {
     if (err) {
       console.log(err);

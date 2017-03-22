@@ -350,7 +350,29 @@
         console.log('Trello error');
         console.log(errorMsg);
       };
-      var webhook_url = "https://" + <% shop %> + "/admin/webhooks.json"
+
+      var webhook_url = "https://" + <% shop %> + "/admin/webhooks.json";
+      headers: { "X-Shopify-Access-Token": req.session.access_token},
+
+      $.ajax({
+        method: 'GET',
+        ur: webhook_url,
+
+      });
+      request({
+        method: 'POST',
+        url : "https://" + req.session.shop + "/admin/webhooks.json",
+        headers: { "X-Shopify-Access-Token": req.session.access_token},
+        json : webhook_data
+      }, function(err, response, body) {
+          if (err) {
+            console.log(err);
+            console.log("Post response:", body)
+          } else {
+          console.log('Post response:', body)
+        };
+      });
+
       $.ajax({
           type: "POST",
           url : webhook_url,
